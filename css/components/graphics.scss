@@ -1,0 +1,339 @@
+.graphics__container {
+  @include abs100();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  * {
+    line-height: 0;
+    font-size: 0;
+  }
+}
+
+// ==========================================================================
+// hero dots
+// ==========================================================================
+.graphics__dots-main {
+  @include abs100();
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateZ(0);
+  ul {
+    margin-top: 44px;
+    display: flex;
+    &:first-child {
+      margin-top: 24px;
+    }
+    @for $i from 1 through 12 {
+      &.radius-#{$i} {
+        li {
+          width: #{$i}px;
+          height: #{$i}px;
+        }
+      }
+    }
+    li {
+      list-style: none;
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba($circaGreen, 0.2);
+      margin-left: 44px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.graphics__dots-cluster {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transform: translateZ(0);
+  ul {
+    display: flex;
+    list-style: none;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 0;
+  }
+  li {
+    line-height: 0;
+    list-style: none;
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba($circaGreen, 0.2);
+    margin-left: 44px;
+    opacity: 0;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  @for $i from 1 through 36 {
+    &.gap-#{$i} {
+      ul {
+        margin-top: #{$i}px;
+      }
+      li {
+        margin-left: #{$i}px;
+      }
+    }
+  }
+  @for $i from 1 through 12 {
+    &.radius-#{$i} {
+      li {
+        width: #{$i}px;
+        height: #{$i}px;
+      }
+    }
+  }
+}
+
+.graphics__dots-cluster--green {
+  @extend .graphics__dots-cluster;
+  li {
+    background: $circaGreen;
+  }
+}
+.graphics__dots-cluster--purple {
+  @extend .graphics__dots-cluster;
+  li {
+    background: $lightPurple;
+  }
+}
+
+// ==========================================================================
+// Hero shapes
+// ==========================================================================
+
+.graphics__hero-arc {
+  position: absolute;
+  right: 3%;
+  bottom: 200px;
+  transform: translateZ(0);
+  .graphic {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+    transform: translateX(80px);
+    transition: 1.2s opacity $easing, 1.2s transform $easing;
+
+    svg {
+      fill: rgba(darken($darkPurple, 30%), 0.2);
+    }
+  }
+  &.is-inview .graphic {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.graphics__hero-hex {
+  position: absolute;
+  right: 18%;
+  top: 30vh;
+  transform: translateZ(0);
+  .graphic {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    transform: translateY(-80px);
+    transition: 1.2s opacity $easing, 1.2s transform $easing;
+    svg {
+      fill: rgba(darken($darkPurple, 30%), 0.2);
+    }
+  }
+  &.is-inview .graphic {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ==========================================================================
+// inline dot grids
+// ==========================================================================
+
+.graphics__dots-inline {
+  @extend .graphics__dots-cluster;
+  position: relative;
+}
+
+.graphics__dots-inline--green {
+  @extend .graphics__dots-inline;
+  li {
+    background: $circaGreen;
+  }
+}
+.graphics__dots-inline--purple {
+  @extend .graphics__dots-inline;
+  li {
+    background: $midPurple;
+  }
+}
+
+.graphics__dots-container-inline {
+  display: none;
+  position: absolute;
+  @include bp(1024) {
+    display: inline-block;
+  }
+}
+
+// ==========================================================================
+// radial grads
+// ==========================================================================
+
+.graphics__gradient--pink {
+  position: absolute;
+  display: inline-block;
+  top: -15%;
+  left: -15%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(
+    56.29% 56.29% at 50% 50%,
+    rgba(127, 26, 228, 0.4) 0%,
+    rgba(24, 22, 113, 0) 90%
+  );
+  animation: gradient-fade 10s infinite alternate, 5s;
+}
+.graphics__gradient--blue {
+  position: absolute;
+  display: inline-block;
+  bottom: -20%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(
+    56.29% 56.29% at 50% 50%,
+    rgba(26, 192, 228, 0.3) 0%,
+    rgba(4, 0, 214, 0) 90%
+  );
+  animation: gradient-fade 10s infinite alternate, 5s;
+}
+
+// ==========================================================================
+// Shapes for parallaxin
+// ==========================================================================
+
+.graphics__circle {
+  position: absolute;
+  display: none;
+  @include bp(1024) {
+    display: inline-block;
+  }
+
+  .graphic {
+    position: relative;
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateX(80px);
+    transition: 1.2s all $easing;
+    background: #fff;
+  }
+  &.is-inview .graphic {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.graphics__circle--grey {
+  @extend .graphics__circle;
+  .graphic {
+    background-color: $lightGrey;
+  }
+}
+
+.graphics__circle-keyline {
+  @extend .graphics__circle;
+  .graphic {
+    background: none;
+    border: 1px solid $circaGreen;
+  }
+}
+
+.graphics__circle-keyline--green {
+  @extend .graphics__circle-keyline;
+}
+.graphics__circle-keyline--purple {
+  @extend .graphics__circle-keyline;
+  .graphic {
+    border: 1px solid $midPurple;
+  }
+}
+
+.graphics__hex {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  display: none;
+  @include bp(1024) {
+    display: inline-block;
+  }
+
+  .graphic {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: 1.2s all $easing;
+    background: url("~/assets/graphics_hex_white.svg") no-repeat center/contain;
+  }
+  &.is-inview .graphic {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.graphics__hex--white {
+  @extend .graphics__hex;
+  .graphic {
+    background: url("~/assets/graphics_hex_white.svg") no-repeat center/contain;
+  }
+}
+.graphics__hex--grey {
+  @extend .graphics__hex;
+  .graphic {
+    background: url("~/assets/graphics_hex_grey.svg") no-repeat center/contain;
+  }
+}
+.graphics__hex--keyline {
+  @extend .graphics__hex;
+  .graphic {
+    background: url("~/assets/graphics_hex_keyline.svg") no-repeat
+      center/contain;
+  }
+}
+
+@keyframes gradient-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

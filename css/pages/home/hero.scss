@@ -1,0 +1,108 @@
+h1,
+p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.hero__container {
+  @extend .section-container;
+  background: none;
+}
+
+.hero__background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  // background: #ccc;
+}
+.texture-wrapper {
+  @include abs100();
+  transform: skew(-20deg);
+}
+
+.texture-bg {
+  @include abs100();
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s $easing;
+  &.is-inview {
+    opacity: 1;
+  }
+  &.bg-1,
+  &.bg-3 {
+    left: -50%;
+    right: auto;
+  }
+  &.bg-2,
+  &.bg-4 {
+    left: auto;
+    right: -50%;
+  }
+}
+
+@mixin hero-padding() {
+  @include bp(1024) {
+    padding: 0 5%;
+  }
+  @include bp(1200) {
+    padding: 0 7%;
+  }
+  @include bp(1400) {
+    padding: 0 10%;
+  }
+}
+
+.hero__content {
+  height: 100%;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  margin-top: 70vh;
+}
+
+.hero__title {
+  @include hero-padding();
+  .copy-line {
+    overflow: hidden;
+    display: table;
+  }
+  .word {
+    display: inline-block;
+    opacity: 0;
+  }
+  &.is-inview .word {
+    animation: slide-in 0.8s $easing both;
+    animation-delay: calc(20ms * var(--word-index) + 1s);
+  }
+}
+
+.hero__intro {
+  @include hero-padding();
+  position: relative;
+  background-color: #232323;
+  margin-top: 20vh;
+  left: 0;
+  height: 200vh;
+  width: 700px;
+  width: 100%;
+  p {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.6s $easing, transform 2s $easing;
+  }
+  &.is-inview p {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

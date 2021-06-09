@@ -1,0 +1,98 @@
+/* Buttons styles start */
+.btn {
+  display: inline-block;
+  padding: 0.75rem;
+  margin: 0;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  @include bp(375) {
+    padding: 1rem;
+  }
+  @include bp(768) {
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+  @include bp(1200) {
+    font-size: 1.2rem;
+  }
+  @include bp(1400) {
+    font-size: 1.3rem;
+  }
+  &:first-child {
+    margin-left: 0;
+  }
+  &:hover {
+    background: #fff;
+  }
+  &:focus {
+    outline: 1px solid #fff;
+  }
+}
+
+/* .btn:hover,
+
+.btn:focus {
+  outline: 2px solid #fff;
+}
+
+.btn:active {
+  transform: scale(0.99);
+} */
+/* Button styles end */
+
+.btn__solid--purple {
+  @extend .btn;
+  background-color: $darkPurple;
+  color: #fff;
+  border: 1px solid $darkPurple;
+  &:hover {
+    background-color: darken($darkPurple, 10%);
+  }
+}
+.btn__solid--green {
+  @extend .btn;
+  background-color: $circaGreen;
+  color: #000;
+  border: 1px solid $circaGreen;
+}
+
+.btn__keyline {
+  @extend .btn;
+  color: #fff;
+  background: none;
+  border: 1px solid #fff;
+  &:hover {
+    border: 1px solid $circaGreen;
+    background: $circaGreen;
+    color: $black;
+  }
+}
+.btn__keyline--purple {
+  @extend .btn;
+  color: $darkPurple;
+  background: none;
+  border: 1px solid $darkPurple;
+  &:hover {
+    border: 1px solid $darkPurple;
+    background: $darkPurple;
+    color: #fff;
+  }
+}
+.btn__keyline--green {
+  @extend .btn__keyline;
+  color: $circaGreen;
+  border: 1px solid $circaGreen;
+  &:hover {
+    border: 1px solid $circaGreen;
+    background: $circaGreen;
+    color: $black;
+  }
+}

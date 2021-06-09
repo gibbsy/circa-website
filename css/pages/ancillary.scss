@@ -1,0 +1,61 @@
+.ancillary-page .nav {
+  opacity: 1;
+}
+
+.hero__container--dark {
+  @extend .section-container;
+  @include dark-grad();
+}
+
+.legals__title-block {
+  @extend .content-block;
+  align-items: flex-end;
+  min-height: 30vh;
+  height: 30vh;
+  padding: 80px 2rem;
+  @include bp(768) {
+    padding: 10vh 10%;
+    height: 50vh;
+  }
+}
+
+.legals__text {
+  background-color: $lightGrey;
+  padding: 60px 30px;
+  @include bp(768) {
+    padding: 80px 10%;
+  }
+  @include bp(1200) {
+    padding-right: 25%;
+  }
+  @include bp(1600) {
+    padding-right: 40%;
+  }
+}
+
+.ancillary-page {
+  &.error,
+  &.error-404 {
+    .hero__container--dark {
+      .graphic {
+        opacity: 1;
+      }
+      .graphics__dots-cluster ul li {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.error__title-block {
+  @extend .legals__title-block;
+  height: 80vh;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  .cta-link,
+  .cta-link--green {
+    opacity: 1;
+    margin: 0;
+  }
+}

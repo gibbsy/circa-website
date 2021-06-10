@@ -1,7 +1,7 @@
 <template>
   <div
     ref="container"
-    class="feature__video_wrapper"
+    class="content__video_wrapper"
     :class="{
       autoplay,
       wallpaper,
@@ -9,18 +9,16 @@
   >
     <div
       ref="innerContainer"
-      class="feature__video_wrapper_inner"
+      class="content__video_wrapper_inner"
       :class="{ autoplay, wallpaper }"
     >
       <div
         v-if="wallpaper"
         :id="playerId"
         ref="player"
-        class="feature__video wallpaper"
-        data-scroll
-        data-scroll-speed="-1"
+        class="content__video wallpaper"
       ></div>
-      <div v-else :id="playerId" ref="player" class="feature__video"></div>
+      <div v-else :id="playerId" ref="player" class="content__video"></div>
       <transition name="quick-fade">
         <div
           v-if="!autoplay"
@@ -84,7 +82,7 @@ export default {
     playerOpts() {
       return {
         id: this.vimeoId,
-        width: 1920,
+        width: 1280,
         byline: false,
         muted: this.autoplay,
         autoplay: this.autoplay,

@@ -1,5 +1,19 @@
 .about__container {
   @extend .section-container;
   height: 100vh;
-  background: #fff;
+  background: $black;
+}
+.about__content {
+  @extend .content-block;
+}
+
+.about__images {
+  position: relative;
+  display: flex;
+  .about__img {
+    width: 25vw;
+    height: 25vw;
+    display: inline-block;
+    background-size: cover;
+  }
 }

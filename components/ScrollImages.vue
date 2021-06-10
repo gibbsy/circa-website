@@ -46,7 +46,8 @@
           class="texture-bg bg-3"
           data-scroll
           data-scroll-direction="horizontal"
-          data-scroll-speed="10"
+          data-scroll-speed="20"
+          data-scroll-delay="0.06"
           :style="{
             backgroundImage: `url('${urlFor(animalImages[4].asset)
               .width(imgRes.width)
@@ -63,7 +64,8 @@
           class="texture-bg bg-4"
           data-scroll
           data-scroll-direction="horizontal"
-          data-scroll-speed="-10"
+          data-scroll-speed="-20"
+          data-scroll-delay="0.06"
           :style="{
             backgroundImage: `url('${urlFor(animalImages[5].asset)
               .width(imgRes.width)
@@ -76,6 +78,18 @@
         ></div>
       </div>
     </div>
+    <!-- <div
+      class="image-reveal left"
+      data-scroll
+      data-scroll-direction="horizontal"
+      data-scroll-speed="20"
+      data-scroll-delay="0.06"
+    >
+      <div class="reveal-inner"></div>
+    </div>
+    <div class="image-reveal right">
+      <div class="reveal-inner"></div>
+    </div> -->
   </div>
 </template>
 <script>

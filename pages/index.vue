@@ -4,6 +4,22 @@
       :animal-images="assets.animalImages"
       :img-res="imgRes"
     ></scroll-images>
+    <!--  <div
+      class="hero__background"
+      data-scroll
+      data-scroll-repeat="true"
+      data-scroll-sticky="true"
+      data-scroll-target="#hero"
+      data-scroll-speed="-10"
+    >
+      <ContentVideo
+        player-id="textures"
+        vimeo-id="560926320"
+        :autoplay="true"
+        :wallpaper="true"
+        :scroll="scroll"
+      ></ContentVideo>
+    </div> -->
     <section
       id="hero"
       class="hero__container"
@@ -42,7 +58,31 @@
         </div>
       </article>
     </section>
-    <section class="about__container"></section>
+    <section class="about__container">
+      <div class="about__content">
+        <div class="about__title" data-scroll data-splitting>
+          <block-content
+            :blocks="about.aboutTitle"
+            :serializers="serializers"
+          ></block-content>
+        </div>
+        <div class="about__images">
+          <div
+            v-for="img in about.aboutImages"
+            :key="img.title"
+            class="about__img"
+            :style="{
+              backgroundImage: `url('${urlFor(img.asset)
+                .width(500)
+                .height(500)
+                .format('jpg')
+                .quality(70)
+                .url()}')`,
+            }"
+          ></div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

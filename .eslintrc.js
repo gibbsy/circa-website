@@ -21,6 +21,8 @@ module.exports = {
     gtag: "readonly",
     Vimeo: "readonly",
     gsap: "readonly",
+    ScrollTrigger: "readonly",
     Splitting: "readonly",
+    imagesLoaded: "readonly",
   },
 };

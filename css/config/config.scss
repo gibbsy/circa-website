@@ -39,6 +39,16 @@
     }
   }
 }
+
+@mixin clip-edge($edge) {
+  @if $edge== "left" {
+    clip-path: polygon(36vh 0, 100% 0, 100% 100%, 0 100%);
+  } @else if $edge== "right" {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 36vh) 100%, 0 100%);
+  } @else if $edge== "both" {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 36vh) 100%, 0 100%);
+  }
+}
 // Transitions
 // =============================================================================
 $speed: 0.3s;

@@ -1,9 +1,5 @@
 <template>
   <div id="page-wrapper" ref="scroll" class="home page-wrapper">
-    <scroll-images
-      :animal-images="assets.animalImages"
-      :img-res="imgRes"
-    ></scroll-images>
     <!--  <div
       class="hero__background"
       data-scroll
@@ -27,6 +23,13 @@
       data-scroll-call="hero"
       data-scroll-repeat="true"
     >
+      <div id="hero-target-50" class="target"></div>
+      <div id="hero-target-100" class="target"></div>
+      <div id="hero-target-150" class="target"></div>
+      <scroll-images
+        :animal-images="assets.animalImages"
+        :img-res="imgRes"
+      ></scroll-images>
       <div
         class="circa-logo logo-corner-left"
         aria-label="circa Logo"
@@ -192,6 +195,7 @@ export default {
     this.$nextTick(() => {
       this.init();
     });
+    gsap.registerPlugin(ScrollTrigger);
     console.log(this.assets);
   },
   methods: {
@@ -215,6 +219,7 @@ export default {
     },
     initScrollEvents() {
       window.addEventListener("resize", this.handleResize);
+      this.scroll.on("scroll", ScrollTrigger.update);
       this.scroll.on("call", (value, way, obj) => {});
     },
     updateScroll() {

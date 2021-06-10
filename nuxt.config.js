@@ -49,7 +49,7 @@ export default {
     ],
     script: [
       {
-        src: "https://cdn.jsdelivr.net/combine/npm/gsap@3.6.1,npm/@vimeo/player@2.15.0,npm/splitting@1.0.6",
+        src: "https://cdn.jsdelivr.net/combine/npm/gsap@3.6.1,npm/@vimeo/player@2.15.0,npm/splitting@1.0.6,npm/imagesloaded@4.1.4/imagesloaded.pkgd.min.js,npm/gsap@3.6.1/dist/ScrollTrigger.min.js",
       },
     ],
   },
@@ -76,7 +76,36 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["cookie-universal-nuxt", "@nuxtjs/robots", "@nuxtjs/sitemap"],
+  modules: [
+    [
+      "nuxt-lazy-load",
+      {
+        // These are the default values
+        images: true,
+        videos: true,
+        audios: true,
+        iframes: true,
+        native: false,
+        polyfill: true,
+        directiveOnly: true,
+
+        // Default image must be in the static folder
+        defaultImage: "/images/default-image.jpg",
+
+        // To remove class set value to false
+        loadingClass: "isLoading",
+        loadedClass: "isLoaded",
+        appendClass: "lazyLoad",
+
+        observerConfig: {
+          // See IntersectionObserver documentation
+        },
+      },
+    ],
+    "cookie-universal-nuxt",
+    "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
+  ],
   sitemap: {
     hostname: "https://www.circahealthcare.co.uk",
     routes: ["/legal/privacy-policy", "legal/disclaimer"],

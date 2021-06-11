@@ -34,12 +34,26 @@ $stickyHeight: 70px;
     background-color 0.3s ease;
 
   .circa-logo {
-    width: 130px;
-    cursor: pointer;
-    svg {
-      fill: $black;
-      .logo-hex {
-        fill: $circaGreen;
+    width: 120px;
+    z-index: 10;
+
+    @include bp(400) {
+      width: 140px;
+    }
+    @include bp(1400) {
+      width: 180px;
+    }
+    @include bp(1800) {
+      width: 200px;
+    }
+    a {
+      svg,
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      svg {
+        fill: #ccc;
       }
     }
   }
@@ -62,34 +76,15 @@ $stickyHeight: 70px;
         }
       }
     }
-    .nav__products-dropdown {
-      ul {
-        border-radius: 0 0 8px 8px;
-        margin-top: 48px;
-        box-shadow: none;
-      }
-      li {
-        a {
-          background-color: #fff;
-          padding: 0.8rem 1.25rem;
-          &:hover {
-            background-color: darken($lightGrey, 2%);
-          }
-        }
-      }
-    }
   }
   &.dark {
-    background-color: rgba($nightMode, 0.9);
+    background-color: rgba($black, 0.9);
     &:hover {
-      background-color: $nightMode;
+      background-color: $black;
     }
     .circa-logo {
       svg {
         fill: #fff;
-        .logo-hex {
-          fill: $circaGreen;
-        }
       }
     }
     .nav__links-desktop {
@@ -97,19 +92,6 @@ $stickyHeight: 70px;
         color: #fff;
         svg {
           fill: #fff;
-        }
-      }
-    }
-    .nav__products-dropdown {
-      ul {
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-      }
-      li {
-        a {
-          background-color: rgba(lighten($nightMode, 5), 1);
-          &:hover {
-            background-color: $nightMode;
-          }
         }
       }
     }

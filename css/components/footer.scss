@@ -4,7 +4,7 @@ footer {
   display: flex;
   flex-direction: column;
   padding: 3rem 10% 2rem 10%;
-  background: $nightMode;
+  background: $black;
   color: #fff;
   h2 {
     font-size: 1.4rem;
@@ -61,7 +61,7 @@ footer {
   p,
   li,
   a {
-    color: $midPurple;
+    color: $darkTeal;
     font-size: 0.8rem;
     @include bp(768) {
       font-size: 1rem;
@@ -94,12 +94,12 @@ footer {
     a {
       text-decoration: none;
       &:hover {
-        color: $lightGrey;
+        // color: $lightGrey;
       }
       &:visited {
-        color: $midPurple;
+        // color: $midPurple;
         &:hover {
-          color: $lightGrey;
+          // color: $lightGrey;
         }
       }
     }

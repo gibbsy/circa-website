@@ -20,7 +20,7 @@
   bottom: 0.5rem;
   padding: 1rem 1.5rem;
   border-radius: 6px;
-  box-shadow: 0px 0px 24px rgba($nightMode, 0.35);
+  box-shadow: 0px 0px 24px rgba($midnight, 0.35);
   z-index: 200;
   pointer-events: initial;
   @include bp(768) {
@@ -45,7 +45,7 @@
     a {
       text-decoration: underline;
       &:hover {
-        color: $darkPurple;
+        // color: $darkPurple;
       }
     }
   }

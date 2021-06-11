@@ -31,7 +31,7 @@ h2 {
     font-size: 3.5rem;
   }
   @include bp(1920) {
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
   strong {
     font-weight: 700;
@@ -80,17 +80,4 @@ button,
 .submit-button {
   font-weight: 500;
   letter-spacing: 0.8px;
-}
-
-a {
-  color: $darkPurple;
-  transition: color 0.3s ease;
-  &:hover,
-  &:visited {
-    color: black;
-  }
-}
-
-form {
-  font-size: 1.1rem;
 }

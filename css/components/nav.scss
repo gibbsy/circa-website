@@ -76,94 +76,13 @@
       text-align: center;
       cursor: pointer;
       a {
-        color: rgba($lightGrey, 0.9);
+        color: #fff;
         font-size: 1.2rem;
         letter-spacing: 1px;
         font-weight: 500;
         display: flex;
         align-items: center;
-        /* &.products-link {
-          &:after {
-            content: "";
-            position: absolute;
-            width: 32px;
-            height: 32px;
-            display: inline-block;
-            background: url("~@/assets/dropdown_arrow.svg") no-repeat
-              center/contain;
-          }
-        } */
-        svg {
-          width: 16px;
-          height: auto;
-          fill: #fff;
-          transition: fill 0.3s ease;
-          margin-left: 8px;
-          flex-grow: 0;
-        }
-        &:hover,
-        &.active {
-          color: $circaGreen;
-          svg {
-            fill: $circaGreen;
-          }
-        }
       }
-    }
-    button {
-      margin: 0;
-    }
-    .nav__products-dropdown {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      padding: 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(-50%) translateY(-20px);
-      transition: opacity 0.6s $easing, transform 0.6s $easing;
-
-      &.active {
-        pointer-events: initial;
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-      ul {
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        margin-top: 2.8rem;
-        overflow: hidden;
-      }
-      li {
-        a {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          text-align: center;
-          font-size: 1.1rem;
-          letter-spacing: 1px;
-          font-weight: 500;
-          padding: 1rem 2rem;
-          background-color: rgba(lighten($nightMode, 5), 0.8);
-          border-top: 1px solid rgba(255, 255, 255, 0.2);
-          cursor: pointer;
-          transition: background-color 0.1s ease;
-          white-space: nowrap !important;
-          &:first-child {
-            // padding-top: 0;
-            border-top: 0;
-          }
-          &:hover {
-            background-color: $nightMode;
-          }
-        }
-      }
-    }
-  }
-  .nav__connect-btn-mobile {
-    @include bp(768) {
-      display: none;
     }
   }
 }

@@ -4,7 +4,6 @@
 
 .hero__container--dark {
   @extend .section-container;
-  @include dark-grad();
 }
 
 .legals__title-block {
@@ -20,7 +19,7 @@
 }
 
 .legals__text {
-  background-color: $lightGrey;
+  background-color: #fff;
   padding: 60px 30px;
   @include bp(768) {
     padding: 80px 10%;

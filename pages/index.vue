@@ -26,10 +26,13 @@
       <div id="hero-target-50" class="target"></div>
       <div id="hero-target-100" class="target"></div>
       <div id="hero-target-150" class="target"></div>
-      <scroll-images
+      <div id="scroll-trigger-1" class="target"></div>
+      <scroll-trigger-images
+        v-if="assets.animalImages"
         :animal-images="assets.animalImages"
         :img-res="imgRes"
-      ></scroll-images>
+        :scroll="scroll"
+      ></scroll-trigger-images>
       <div
         class="circa-logo logo-corner-left"
         aria-label="circa Logo"
@@ -46,22 +49,50 @@
       </transition>
       <article id="hero-text" class="hero__content" data-scroll data-splitting>
         <div class="hero__title" data-scroll data-scroll-speed="0.2">
-          <block-content
-            :blocks="hero.heroTitle"
-            :serializers="serializers"
-          ></block-content>
+          <div :class="['title-inner', { shift: !showPrompt }]">
+            <block-content
+              :blocks="hero.heroTitle"
+              :serializers="serializers"
+            ></block-content>
+          </div>
         </div>
-        <div
-          class="hero__intro"
-          data-scroll
-          data-scroll-speed="-1.5"
-          data-scroll-offset="100"
-        >
-          <block-content :blocks="hero.heroBody"></block-content>
+        <div :class="['hero__scroll-prompt', { on: showPrompt }]">
+          <p
+            class="prompt"
+            data-scroll
+            data-scroll-repeat="true"
+            data-scroll-offset="0,50%"
+          >
+            {{ hero.heroPrompt }}
+          </p>
+          <div
+            class="arrow-wrapper"
+            data-scroll
+            data-scroll-repeat="true"
+            data-scroll-offset="0,50%"
+          >
+            <arrow />
+          </div>
+        </div>
+        <div id="intro-wrapper" class="hero__intro" data-scroll>
+          <div
+            class="hero__intro-inner"
+            data-scroll
+            data-scroll-sticky
+            data-scroll-target="#intro-wrapper"
+          >
+            <div
+              class="intro__text-reveal"
+              data-scroll
+              data-scroll-offset="20%"
+            >
+              <block-content :blocks="hero.heroBody"></block-content>
+            </div>
+          </div>
         </div>
       </article>
     </section>
-    <section class="about__container">
+    <section class="about__container" data-scroll>
       <div class="about__content">
         <div class="about__title" data-scroll data-splitting>
           <block-content
@@ -95,6 +126,7 @@
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
 import Logo from "~/assets/circa_logo_nofill.svg?inline";
+import Arrow from "~/assets/down_arrow.svg?inline";
 import copyline from "~/components/span.vue";
 
 const urlBuilder = imageUrlBuilder(sanityClient);
@@ -135,6 +167,7 @@ const query = `{
 export default {
   components: {
     Logo,
+    Arrow,
   },
   async asyncData() {
     const homeData = await sanityClient.fetch(query);
@@ -150,7 +183,7 @@ export default {
       navActive: false,
       resizeTimeout: 0,
       scroll: {},
-
+      showPrompt: false,
       serializers: {
         marks: {
           span: copyline,
@@ -192,6 +225,9 @@ export default {
   },
   mounted() {
     this.splitText();
+    setTimeout(() => {
+      this.showPrompt = true;
+    }, 3000);
     this.$nextTick(() => {
       this.init();
     });
@@ -207,7 +243,7 @@ export default {
     },
     initScroll() {
       const el = this.$refs.scroll;
-      this.scroll = new this.LocomotiveScroll({
+      const scroller = new this.LocomotiveScroll({
         el,
         smooth: true,
         getDirection: true,
@@ -215,11 +251,34 @@ export default {
       setTimeout(() => {
         this.updateScroll();
       }, 500);
+
+      scroller.on("scroll", ScrollTrigger.update);
+      ScrollTrigger.scrollerProxy(el, {
+        scrollTop(value) {
+          return arguments.length
+            ? scroller.scrollTo(value, 0, 0)
+            : scroller.scroll.instance.scroll.y;
+        }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+        getBoundingClientRect() {
+          return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight,
+          };
+        },
+        // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
+        pinType: document.querySelector("#page-wrapper").style.transform
+          ? "transform"
+          : "fixed",
+      });
+      ScrollTrigger.addEventListener("refresh", () => scroller.update()); // locomotive-scroll
+      ScrollTrigger.refresh();
+      this.scroll = scroller;
       this.initScrollEvents();
     },
     initScrollEvents() {
       window.addEventListener("resize", this.handleResize);
-      this.scroll.on("scroll", ScrollTrigger.update);
       this.scroll.on("call", (value, way, obj) => {});
     },
     updateScroll() {

@@ -1,0 +1,6 @@
+.clients__container {
+  @extend .section-container;
+  height: 100vh;
+  background: $darkTeal;
+  color: #fff;
+}

@@ -1,5 +1,5 @@
 .hero__container {
-  @extend .section-container;
+  position: relative;
   background: none;
   h1,
   p {
@@ -20,30 +20,10 @@
   display: inline-block;
 }
 
-#hero-target-50 {
-  left: 50%;
-  height: 50vh;
-  width: 2px;
-  z-index: 500;
-  // background: red;
-}
-#hero-target-100 {
-  height: 100vh;
-  width: 2px;
-  z-index: 500;
-  // background: blue;
-}
-#hero-target-150 {
-  height: 150vh;
-  width: 2px;
-  z-index: 500;
-  // background: blue;
-}
-
 #scroll-trigger-1 {
   top: 0;
   left: 30%;
-  height: 450vh;
+  height: 435vh;
   width: 20px;
   z-index: 500;
   // background: purple;
@@ -104,6 +84,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  img {
+    max-width: 50%;
+  }
+  &.left {
+  }
   svg {
     width: 800px;
     fill: #fff;
@@ -143,9 +128,11 @@
 
 .hero__content {
   @extend .content-block;
-  height: 100%;
+  // height: 100%;
   display: inline-block;
   margin-top: 40vh;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .hero__title {
@@ -165,7 +152,7 @@
     opacity: 0;
   }
   &.is-inview .word {
-    animation: slide-in 0.8s $easing both;
+    animation: slide-in-words 0.8s $easing both;
     animation-delay: calc(20ms * var(--word-index) + 1s);
   }
 }
@@ -173,9 +160,8 @@
 .hero__intro {
   position: relative;
   width: 700px;
-  height: 350vh;
+  height: 450vh;
   display: flex;
-  margin-bottom: 150vh;
 }
 .intro__text-reveal {
   p {
@@ -242,15 +228,5 @@
   svg {
     width: 800px;
     fill: #fff;
-  }
-}
-@keyframes slide-in {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }

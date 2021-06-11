@@ -1,23 +1,18 @@
 <template>
-  <div
-    class="hero__background"
-    data-scroll
-    data-scroll-sticky="true"
-    data-scroll-target="#hero"
-  >
+  <div class="hero__background">
     <div class="hero__images">
       <div class="texture-bg bg-6 pull-left">
         <div class="inner-texture"></div>
-        <div class="hero-logo">
-          <logo-left />
-        </div>
       </div>
       <div class="texture-bg bg-5 pull-right">
-        <div class="hero-logo">
-          <logo-right />
-        </div>
         <div class="inner-texture"></div>
       </div>
+      <!--  <div class="hero-logo left">
+        <img src="~/assets/circa-logo-left.png" />
+      </div>
+      <div class="hero-logo right">
+        <img src="~/assets/circa-logo-right.png" />
+      </div> -->
       <!-- <div class="hero-logo-centred">
         <logo />
       </div> -->
@@ -84,17 +79,25 @@
     <div id="reveal-right" class="image-reveal pull-right">
       <div class="inner-texture"></div>
     </div>
+    <div
+      ref="logo-peel"
+      class="circa-logo logo-corner-left"
+      aria-label="circa Logo"
+    >
+      <nuxt-link to="/">
+        <logo />
+      </nuxt-link>
+    </div>
   </div>
 </template>
 <script>
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
-import LogoLeft from "~/assets/circa_logo_left_nofill.svg?inline";
-import LogoRight from "~/assets/circa_logo_right_nofill.svg?inline";
+import Logo from "~/assets/circa_logo_nofill.svg?inline";
 
 const urlBuilder = imageUrlBuilder(sanityClient);
 export default {
-  components: { LogoLeft, LogoRight },
+  components: { Logo },
   props: {
     animalImages: {
       type: Array,
@@ -110,13 +113,17 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
-      this.initScroll();
-    }, 1000);
+    this.initScroll();
   },
   methods: {
     initScroll() {
       const scrollContainer = document.getElementById("page-wrapper");
+      const logoEl = this.$refs["logo-peel"];
+      gsap.fromTo(
+        logoEl,
+        { x: "-100%" },
+        { x: 0, duration: 1, ease: "Power2.easeOut" }
+      );
       const tl = gsap.timeline({
         scrollTrigger: {
           scroller: scrollContainer,
@@ -124,6 +131,7 @@ export default {
           start: "top top",
           scrub: true,
           markers: true,
+          pin: ".hero__background",
         },
       });
       tl.to(
@@ -220,6 +228,7 @@ export default {
         },
         1
       );
+
       this.updateScroll();
     },
     urlFor(source) {

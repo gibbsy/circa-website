@@ -16,16 +16,7 @@
         :scroll="scroll"
       ></ContentVideo>
     </div> -->
-    <section
-      id="hero"
-      class="hero__container"
-      data-scroll
-      data-scroll-call="hero"
-      data-scroll-repeat="true"
-    >
-      <div id="hero-target-50" class="target"></div>
-      <div id="hero-target-100" class="target"></div>
-      <div id="hero-target-150" class="target"></div>
+    <section id="hero" class="hero__container">
       <div id="scroll-trigger-1" class="target"></div>
       <scroll-trigger-images
         v-if="assets.animalImages"
@@ -33,17 +24,7 @@
         :img-res="imgRes"
         :scroll="scroll"
       ></scroll-trigger-images>
-      <div
-        class="circa-logo logo-corner-left"
-        aria-label="circa Logo"
-        data-scroll
-        data-scroll-sticky="true"
-        data-scroll-target="#hero"
-      >
-        <nuxt-link to="/">
-          <logo />
-        </nuxt-link>
-      </div>
+
       <transition appear name="fade">
         <nav-desktop ref="nav" :scroll="scroll" />
       </transition>
@@ -69,7 +50,7 @@
             class="arrow-wrapper"
             data-scroll
             data-scroll-repeat="true"
-            data-scroll-offset="0,50%"
+            data-scroll-offset="-100,50%"
           >
             <arrow />
           </div>
@@ -92,31 +73,28 @@
         </div>
       </article>
     </section>
-    <section class="about__container" data-scroll>
+    <section id="about-wrapper" class="about__container" data-scroll>
+      <about-scroller :about="about" :scroll="scroll"></about-scroller>
       <div class="about__content">
-        <div class="about__title" data-scroll data-splitting>
+        <!-- <div id="scroll-trigger-2"></div> -->
+        <!-- <div class="about__bg-right clip-left"></div> -->
+        <div
+          class="about__title title-reveal"
+          data-scroll
+          data-splitting
+          data-scroll-offset="20%"
+        >
           <block-content
             :blocks="about.aboutTitle"
             :serializers="serializers"
           ></block-content>
         </div>
-        <div class="about__images">
-          <div
-            v-for="img in about.aboutImages"
-            :key="img.title"
-            class="about__img"
-            :style="{
-              backgroundImage: `url('${urlFor(img.asset)
-                .width(500)
-                .height(500)
-                .format('jpg')
-                .quality(70)
-                .url()}')`,
-            }"
-          ></div>
+        <div class="about__body body-copy">
+          <block-content :blocks="about.aboutBody"></block-content>
         </div>
       </div>
     </section>
+    <section class="clients__container" data-scroll></section>
   </div>
 </template>
 
@@ -125,7 +103,7 @@
 // import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
-import Logo from "~/assets/circa_logo_nofill.svg?inline";
+/* import Logo from "~/assets/circa_logo_nofill.svg?inline"; */
 import Arrow from "~/assets/down_arrow.svg?inline";
 import copyline from "~/components/span.vue";
 
@@ -166,7 +144,7 @@ const query = `{
 }`;
 export default {
   components: {
-    Logo,
+    /*   Logo, */
     Arrow,
   },
   async asyncData() {

@@ -32,6 +32,10 @@
   }
 }
 
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
 @mixin stagger-children($prop, $children, $delay, $stagger) {
   @for $i from 1 through $children {
     &:nth-child(#{$i}) {
@@ -47,6 +51,16 @@
     clip-path: polygon(0 0, 100% 0, calc(100% - 36vh) 100%, 0 100%);
   } @else if $edge== "both" {
     clip-path: polygon(0 0, 100% 0, calc(100% - 36vh) 100%, 0 100%);
+  }
+}
+@mixin clip-edge-h($edge, $height: 100vh) {
+  $hCalc: $height * 0.36397023426;
+  @if $edge== "left" {
+    clip-path: polygon(#{$hCalc} 0, 100% 0, 100% 100%, 0 100%);
+  } @else if $edge== "right" {
+    clip-path: polygon(0 0, 100% 0, calc(100% - #{$hCalc}) 100%, 0 100%);
+  } @else if $edge== "both" {
+    clip-path: polygon(0 0, 100% 0, calc(100% - #{$hCalc}) 100%, 0 100%);
   }
 }
 // Transitions

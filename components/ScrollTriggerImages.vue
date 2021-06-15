@@ -1,27 +1,46 @@
 <template>
-  <div class="hero__background">
-    <div class="hero__images">
-      <div class="texture-bg bg-6 pull-left">
+  <div :class="['hero__background', { loaded: !loading }]">
+    <div v-if="imgRes.width > 1" id="image-container" class="hero__images">
+      <!--   <div class="texture-bg bg-6 pull-left">
         <div class="inner-texture"></div>
       </div>
       <div class="texture-bg bg-5 pull-right">
         <div class="inner-texture"></div>
-      </div>
-      <!--  <div class="hero-logo left">
-        <img src="~/assets/circa-logo-left.png" />
-      </div>
-      <div class="hero-logo right">
-        <img src="~/assets/circa-logo-right.png" />
       </div> -->
-      <!-- <div class="hero-logo-centred">
-        <logo />
-      </div> -->
+      <div class="texture-bg bg-6 pull-left">
+        <div
+          class="image-inner"
+          :style="{
+            backgroundImage: `url('${urlFor(animalImages[6].asset)
+              .width(imgRes.width / 2)
+              .height(imgRes.height)
+              .dpr(imgRes.dpr)
+              .format('jpg')
+              .quality(70)
+              .url()}')`,
+          }"
+        ></div>
+      </div>
+      <div class="texture-bg bg-5 pull-right">
+        <div
+          class="image-inner"
+          :style="{
+            backgroundImage: `url('${urlFor(animalImages[0].asset)
+              .width(imgRes.width / 2)
+              .height(imgRes.height)
+              .dpr(imgRes.dpr)
+              .format('jpg')
+              .quality(70)
+              .url()}')`,
+          }"
+        ></div>
+      </div>
       <div class="texture-bg bg-4 pull-left">
         <div
           class="image-inner"
           :style="{
-            backgroundImage: `url('${urlFor(animalImages[2].asset)
-              .width(imgRes.width)
+            backgroundImage: `url('${urlFor(animalImages[3].asset)
+              .width(imgRes.width / 2)
               .height(imgRes.height)
               .dpr(imgRes.dpr)
               .format('jpg')
@@ -34,8 +53,8 @@
         <div
           class="image-inner"
           :style="{
-            backgroundImage: `url('${urlFor(animalImages[3].asset)
-              .width(imgRes.width)
+            backgroundImage: `url('${urlFor(animalImages[6].asset)
+              .width(imgRes.width / 2)
               .height(imgRes.height)
               .dpr(imgRes.dpr)
               .format('jpg')
@@ -48,8 +67,8 @@
         <div
           class="image-inner"
           :style="{
-            backgroundImage: `url('${urlFor(animalImages[4].asset)
-              .width(imgRes.width)
+            backgroundImage: `url('${urlFor(animalImages[5].asset)
+              .width(imgRes.width / 2)
               .height(imgRes.height)
               .dpr(imgRes.dpr)
               .format('jpg')
@@ -62,8 +81,36 @@
         <div
           class="image-inner"
           :style="{
-            backgroundImage: `url('${urlFor(animalImages[5].asset)
-              .width(imgRes.width)
+            backgroundImage: `url('${urlFor(animalImages[4].asset)
+              .width(imgRes.width / 2)
+              .height(imgRes.height)
+              .dpr(imgRes.dpr)
+              .format('jpg')
+              .quality(70)
+              .url()}')`,
+          }"
+        ></div>
+      </div>
+      <div id="reveal-left" class="texture-bg image-reveal pull-left">
+        <div
+          class="image-inner"
+          :style="{
+            backgroundImage: `url('${urlFor(animalImages[10].asset)
+              .width(imgRes.width / 2)
+              .height(imgRes.height)
+              .dpr(imgRes.dpr)
+              .format('jpg')
+              .quality(70)
+              .url()}')`,
+          }"
+        ></div>
+      </div>
+      <div id="reveal-right" class="texture-bg image-reveal pull-right">
+        <div
+          class="image-inner"
+          :style="{
+            backgroundImage: `url('${urlFor(animalImages[9].asset)
+              .width(imgRes.width / 2)
               .height(imgRes.height)
               .dpr(imgRes.dpr)
               .format('jpg')
@@ -73,12 +120,15 @@
         ></div>
       </div>
     </div>
-    <div id="reveal-left" class="image-reveal pull-left">
+    <!--     <div id="reveal-left" class="image-reveal pull-left">
       <div class="inner-texture"></div>
     </div>
     <div id="reveal-right" class="image-reveal pull-right">
       <div class="inner-texture"></div>
-    </div>
+    </div> -->
+    <transition appear name="slide-down">
+      <nav-desktop ref="nav" :scroll="scroll" />
+    </transition>
     <div
       ref="logo-peel"
       class="circa-logo logo-corner-left"
@@ -111,8 +161,33 @@ export default {
       type: Object,
       default: () => {},
     },
+    loadFn: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      loading: true,
+    };
   },
   mounted() {
+    const imgLoad = imagesLoaded(
+      "#image-container",
+      { background: true },
+      () => {
+        const that = this;
+        setTimeout(() => {
+          that.loading = false;
+          that.loadFn();
+          console.log("imgs loaded");
+        }, 1000);
+      }
+    );
+    imgLoad.on("progress", function (instance, image) {
+      const result = image.isLoaded ? "loaded" : "broken";
+      console.log("image is " + result + " for " + image.img.src);
+    });
     this.initScroll();
   },
   methods: {
@@ -130,7 +205,7 @@ export default {
           trigger: "#scroll-trigger-1",
           start: "top top",
           scrub: true,
-          markers: true,
+          // markers: true,
           pin: ".hero__background",
         },
       });
@@ -144,9 +219,29 @@ export default {
         0
       );
       tl.to(
+        "#reveal-right .image-inner",
+        {
+          x: "-=40%",
+          scale: 1.2,
+          ease: "sine.inOut",
+          duration: 0.4,
+        },
+        0
+      );
+      tl.to(
         "#reveal-left",
         {
           x: "-=100%",
+          ease: "sine.inOut",
+          duration: 0.4,
+        },
+        0
+      );
+      tl.to(
+        "#reveal-left .image-inner",
+        {
+          x: "+=40%",
+          scale: 1.2,
           ease: "sine.inOut",
           duration: 0.4,
         },

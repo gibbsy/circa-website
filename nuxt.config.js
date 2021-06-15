@@ -127,7 +127,18 @@ export default {
 
       config.module.rules.push({
         test: /\.svg$/,
-        use: ["babel-loader", "vue-svg-loader"],
+        oneOf: [
+          {
+            resourceQuery: /inline/,
+            use: ["babel-loader", "vue-svg-loader"],
+          },
+          {
+            loader: "file-loader",
+            query: {
+              name: "assets/[name].[hash:8].[ext]",
+            },
+          },
+        ],
       });
     },
     generate: { fallback: false },

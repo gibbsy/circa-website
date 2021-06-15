@@ -1,106 +1,78 @@
 <template>
   <div :class="[{ active }, 'nav__sticky-wrapper']">
     <div id="nav-sticky" :class="[{ dark }, 'nav__sticky']" role="navigation">
-      <div
-        class="circa-logo"
-        aria-label="circa Logo"
-        @click.prevent="
-          scrollTo('#hero-container', {
-            offset: 0,
-            duration: 1000,
-          })
-        "
-      >
-        <logo />
-      </div>
-      <ul class="nav__links-desktop">
-        <li>
-          <a
-            :class="[{ active: showProducts }, 'products-link']"
-            @mouseenter="showProds"
-            >Products</a
-          >
-          <div
-            class="nav__products-dropdown"
-            :class="{ active: showProducts }"
-            @mouseleave="hideProds"
-          >
-            <ul>
-              <li>
-                <a
-                  @click.prevent="
-                    scrollTo('#feature-0', {
-                      offset: 0,
-                      duration: 1000,
-                    })
-                  "
-                >
-                  Single-API Market Access</a
-                >
-              </li>
-              <li>
-                <a
-                  @click.prevent="
-                    scrollTo('#feature-1', {
-                      offset: 0,
-                      duration: 1000,
-                    })
-                  "
-                >
-                  End to End Trading Services</a
-                >
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li
+      <div class="circa-logo" aria-label="circa Logo">
+        <a
+          aria-label="Scroll to top"
+          href
           @click.prevent="
-            scrollTo('#feature-2', {
+            scrollTo('#hero', {
               offset: 0,
               duration: 1000,
             })
           "
         >
-          <a>About us</a>
+          <logo
+        /></a>
+      </div>
+      <ul class="nav__links-desktop">
+        <li
+          @click.prevent="
+            scrollTo('#about-wrapper', {
+              offset: 0,
+              duration: 1000,
+            })
+          "
+        >
+          <a>Story</a>
         </li>
-        <li>
-          <button
-            tabindex="0"
-            role="button"
-            aria-label="Connect with us"
-            class="btn btn__keyline--green"
-            @click.prevent="
-              scrollTo('#contact-section', {
-                offset: 0,
-                duration: 1000,
-              })
-            "
-          >
-            Connect with us
-          </button>
+        <li
+          @click.prevent="
+            scrollTo('#services-wrapper', {
+              offset: 0,
+              duration: 1000,
+            })
+          "
+        >
+          <a>Services</a>
         </li>
-      </ul>
-      <button
-        v-show="isMobile"
-        tabindex="0"
-        role="button"
-        aria-label="Connect with us"
-        class="btn btn__keyline--green nav__connect-btn-mobile"
+        <li
+          @click.prevent="
+            scrollTo('#clients-wrapper', {
+              offset: 0,
+              duration: 1000,
+            })
+          "
+        >
+          <a>Clients</a>
+        </li>
+        <!-- <li
         @click.prevent="
-          scrollTo('#contact-section', {
+          scrollTo('#work-wrapper', {
             offset: 0,
             duration: 1000,
           })
         "
       >
-        Connect
-      </button>
+        <a>Work</a>
+      </li> -->
+        <li
+          @click.prevent="
+            scrollTo('#connect-wrapper', {
+              offset: 0,
+              duration: 1000,
+            })
+          "
+        >
+          <a>Connect</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
 import mobile from "is-mobile";
-import Logo from "~/assets/circa_logo_white.svg?inline";
+import Logo from "~/assets/circa_logo_nofill.svg?inline";
 export default {
   components: {
     Logo,
@@ -119,11 +91,11 @@ export default {
       default: () => {},
     },
   },
-  data() {
+  /*  data() {
     return {
       showProducts: false,
     };
-  },
+  }, */
   computed: {
     isMobile() {
       return mobile();
@@ -132,12 +104,6 @@ export default {
   methods: {
     scrollTo(target, options) {
       this.scroll.scrollTo(target, options);
-    },
-    showProds() {
-      this.showProducts = true;
-    },
-    hideProds() {
-      this.showProducts = false;
     },
   },
 };

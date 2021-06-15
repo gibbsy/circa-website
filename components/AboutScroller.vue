@@ -1,22 +1,22 @@
 <template>
-  <div class="about__scroller-wrapper">
+  <div class="about__scroller-wrapper" data-scroll data-scroll-offset="35%">
     <div id="about-images-container" class="about__images">
-      <div
-        v-for="img in about.aboutImages"
-        :key="img.title"
-        class="about__img"
-        :style="{
-          backgroundImage: `url('${urlFor(img.asset)
-            .width(500)
-            .height(500)
-            .format('jpg')
-            .quality(70)
-            .url()}')`,
-        }"
-      ></div>
+      <div v-for="img in about.aboutImages" :key="img.title" class="about__img">
+        <figure
+          class="inner-image"
+          :style="{
+            backgroundImage: `url('${urlFor(img.asset)
+              .width(500)
+              .height(500)
+              .format('jpg')
+              .quality(70)
+              .url()}')`,
+          }"
+        ></figure>
+      </div>
     </div>
     <div id="about-stats-container" class="about__stats">
-      <div v-for="(stat, i) in about.aboutStats" :key="i" class="stat">
+      <div v-for="(stat, i) in about.aboutStats" :key="i" class="stat-wrapper">
         <h2 class="stat">{{ stat.stat }}</h2>
         <div class="stat__text">
           <h3>{{ stat.title }}</h3>
@@ -75,7 +75,7 @@ export default {
           scrub: true,
           // markers: true,
           pin: true,
-          end: "+=100%",
+          end: "+=200%",
         },
       });
       tl.to(

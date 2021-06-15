@@ -50,6 +50,7 @@ h3 {
 }
 
 .title-reveal {
+  position: relative;
   .copy-line {
     overflow: hidden;
     display: table;
@@ -61,6 +62,43 @@ h3 {
   &.is-inview .word {
     animation: slide-in-words 0.8s $easing both;
     animation-delay: calc(20ms * var(--word-index));
+  }
+}
+
+.subhead {
+  margin-bottom: 1rem;
+}
+
+.section-caption {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem;
+  &:after {
+    content: "";
+    position: relative;
+    border-top: 1px solid $black;
+    height: 1px;
+    display: inline-block;
+    width: 40vw;
+    margin-left: 1rem;
+  }
+}
+
+.section-caption-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: table;
+  .section-caption {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: opacity 0.6s $easing, transform 0.6s $easing;
+  }
+  &.is-inview .section-caption {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -85,7 +123,7 @@ li {
   }
 
   @include bp(1400) {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     line-height: 1.7;
   }
   @include bp(1800) {
@@ -95,9 +133,54 @@ li {
     font-weight: 700;
   }
 }
+p {
+  margin-top: 1.2rem;
+  &:first-child {
+    margin-top: 0;
+  }
+}
 
-button,
-.submit-button {
-  font-weight: 500;
-  letter-spacing: 0.8px;
+a:visited {
+  color: initial;
+}
+
+.cta-link {
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.5s ease;
+  &:hover {
+    color: $darkOrange;
+  }
+}
+.body-copy {
+  position: relative;
+  width: 33vw;
+  .subhead,
+  p {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.6s ease, transform 0.6s $easing;
+  }
+  &.is-inview {
+    .subhead,
+    p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.connect__details {
+  h3 {
+    font-size: 2rem;
+    line-height: 1.7;
+    color: $black;
+  }
+  a {
+    &:hover {
+      h3 {
+        color: $brown;
+      }
+    }
+  }
 }

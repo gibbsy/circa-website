@@ -3,7 +3,7 @@ footer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 3rem 10% 2rem 10%;
+  padding: 6rem 10%;
   background: $black;
   color: #fff;
   h2 {
@@ -44,6 +44,9 @@ footer {
   width: 120px;
   svg.logo__stacked {
     width: 100% !important;
+  }
+  svg {
+    fill: #fff;
   }
 }
 

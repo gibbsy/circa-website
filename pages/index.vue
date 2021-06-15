@@ -31,7 +31,7 @@
       data-scroll-call="hero"
       data-scroll-repeat="true"
     >
-      <transition name="slow-fade" appear>
+      <transition name="fade" appear>
         <div v-if="!ready" class="loading-msg">
           <h3>Please wait, red hot ideas brewing!</h3>
         </div>
@@ -59,23 +59,23 @@
               :serializers="serializers"
             ></block-content>
           </div>
-        </div>
-        <div :class="['hero__scroll-prompt', { on: showPrompt }]">
-          <p
-            class="prompt"
-            data-scroll
-            data-scroll-repeat="true"
-            data-scroll-offset="0,50%"
-          >
-            {{ hero.heroPrompt }}
-          </p>
-          <div
-            class="arrow-wrapper"
-            data-scroll
-            data-scroll-repeat="true"
-            data-scroll-offset="-100,50%"
-          >
-            <arrow />
+          <div :class="['hero__scroll-prompt', { on: showPrompt }]">
+            <p
+              class="prompt"
+              data-scroll
+              data-scroll-repeat="true"
+              data-scroll-offset="0,50%"
+            >
+              {{ hero.heroPrompt }}
+            </p>
+            <div
+              class="arrow-wrapper"
+              data-scroll
+              data-scroll-repeat="true"
+              data-scroll-offset="-100,50%"
+            >
+              <arrow />
+            </div>
           </div>
         </div>
         <div id="intro-wrapper" class="hero__intro" data-scroll>

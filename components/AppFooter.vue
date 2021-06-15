@@ -9,17 +9,17 @@
     </div>
     <div class="footer__legals">
       <p class="copyright">©2021 Circa</p>
-      <ul class="legal-links-menu">
+      <!-- <ul class="legal-links-menu">
         <li v-for="page in legals" :key="page.slug">
           <nuxt-link :to="`/legal/${page.slug}`">{{ page.title }}</nuxt-link>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </footer>
 </template>
 <script>
 import sanityClient from "~/sanityClient";
-import Logo from "~/assets/circa_logo_white.svg?inline";
+import Logo from "~/assets/circa_logo_nofill.svg?inline";
 const query = `*[_type == "legalsPage" ]{ title, "slug": slug.current }`;
 export default {
   components: {

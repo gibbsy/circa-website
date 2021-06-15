@@ -177,6 +177,7 @@ export default {
       { background: true },
       () => {
         const that = this;
+        this.initScroll();
         setTimeout(() => {
           that.loading = false;
           that.loadFn();
@@ -188,7 +189,6 @@ export default {
       const result = image.isLoaded ? "loaded" : "broken";
       console.log("image is " + result + " for " + image.img.src);
     });
-    this.initScroll();
   },
   methods: {
     initScroll() {
@@ -332,6 +332,7 @@ export default {
     updateScroll() {
       console.log("update scroll");
       this.scroll.update();
+      ScrollTrigger.refresh();
     },
   },
 };

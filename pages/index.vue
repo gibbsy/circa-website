@@ -625,6 +625,7 @@ export default {
     updateScroll() {
       console.log("update scroll");
       this.scroll.update();
+      ScrollTrigger.refresh();
     },
     scrollTo(target, options) {
       this.scroll.scrollTo(target, options);

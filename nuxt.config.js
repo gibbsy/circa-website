@@ -142,14 +142,14 @@ export default {
       });
     },
     generate: { fallback: false },
-    terser: {
+    /* terser: {
       // https://github.com/terser/terser#compress-options
       terserOptions: {
         compress: {
           drop_console: true,
         },
       },
-    },
+    }, */
   },
   /*  server: {
     host: "0.0.0.0",

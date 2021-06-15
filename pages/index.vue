@@ -97,7 +97,15 @@
       </article>
     </section>
     <transition appear name="slide-down">
-      <nav-desktop v-show="showUi" ref="nav" :scroll="scroll" />
+      <nav-desktop
+        v-show="showUi"
+        ref="nav"
+        :scroll="scroll"
+        data-scroll
+        data-scroll-repeat="true"
+        data-scroll-sticky="true"
+        data-scroll-target="#hero"
+      />
     </transition>
     <transition name="slow-fade" appear>
       <div
@@ -105,6 +113,10 @@
         ref="logo-peel"
         class="circa-logo logo-corner-left"
         aria-label="circa Logo"
+        data-scroll
+        data-scroll-repeat="true"
+        data-scroll-sticky="true"
+        data-scroll-target="#hero"
       >
         <nuxt-link to="/">
           <logo />
@@ -573,10 +585,11 @@ export default {
     },
   },
   mounted() {
+    gsap.registerPlugin(ScrollTrigger);
     this.$nextTick(() => {
       this.init();
     });
-    gsap.registerPlugin(ScrollTrigger);
+
     console.log(this.assets);
     setTimeout(() => {
       this.onLoad();
@@ -623,7 +636,7 @@ export default {
       ScrollTrigger.addEventListener("refresh", () => scroller.update()); // locomotive-scroll
       ScrollTrigger.refresh();
       this.scroll = scroller;
-      scroller.stop();
+      // scroller.stop();
       this.initScrollEvents();
     },
     initScrollEvents() {
@@ -672,13 +685,17 @@ export default {
       ); */
       setTimeout(() => {
         this.showUi = true;
+        ScrollTrigger.refresh();
+        this.updateScroll();
       }, 500);
       setTimeout(() => {
         this.showPrompt = true;
+        ScrollTrigger.refresh();
+        this.updateScroll();
       }, 3000);
       this.$nextTick(() => {
         this.splitText();
-        this.scroll.start();
+        // this.scroll.start();
         ScrollTrigger.refresh();
         this.updateScroll();
       });

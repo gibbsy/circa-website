@@ -56,7 +56,21 @@ export default {
     /*  this.$nextTick(() => {
       this.initScrollAni();
     }); */
-    this.initScrollAni();
+    const imgLoad = imagesLoaded(
+      "#about-images-container",
+      { background: true },
+      () => {
+        const that = this;
+        this.initScrollAni();
+        setTimeout(() => {
+          that.updateScroll();
+        }, 500);
+      }
+    );
+    imgLoad.on("progress", function (instance, image) {
+      const result = image.isLoaded ? "loaded" : "broken";
+      console.log("image is " + result + " for " + image.img.src);
+    });
   },
   methods: {
     initScrollAni() {
@@ -98,8 +112,10 @@ export default {
         },
         0
       );
-      this.updateScroll();
-      ScrollTrigger.refresh();
+      this.$nextTick(() => {
+        this.updateScroll();
+        ScrollTrigger.refresh();
+      });
 
       /*    const pinBoxes = document.querySelectorAll(".pin-wrap > *");
       const pinWrap = document.querySelector(".pin-wrap");
@@ -128,6 +144,7 @@ export default {
     updateScroll() {
       console.log("update scroll");
       this.scroll.update();
+      ScrollTrigger.refresh();
     },
   },
 };

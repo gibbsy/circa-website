@@ -2,7 +2,7 @@
   position: relative;
   background: none;
   min-height: 100vh;
-  background-color: $anthracite;
+  // background-color: $anthracite;
   h1,
   p {
     color: #fff;
@@ -90,7 +90,7 @@
     }
   }
 } */
-.hero-logo {
+/* .hero-logo {
   @include abs100();
   display: flex;
   justify-content: center;
@@ -104,7 +104,7 @@
     width: 800px;
     fill: #fff;
   }
-}
+} */
 /* .bg-5 {
   background: $violet;
   .inner-texture {
@@ -181,7 +181,7 @@
 .hero__intro {
   position: relative;
   width: 700px;
-  height: 430vh;
+  // height: 430vh;
   display: flex;
 }
 .intro__text-reveal {
@@ -241,7 +241,7 @@
     background: $white url("~/assets/down_arrow.png") no-repeat center/100%;
   } */
 }
-.hero-logo-centred {
+/* .hero-logo-centred {
   @include abs100();
   display: flex;
   justify-content: center;
@@ -251,3 +251,4 @@
     fill: #fff;
   }
 }
+ */

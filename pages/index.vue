@@ -1,7 +1,7 @@
 <template>
   <div id="page-wrapper" ref="scroll" class="home page-wrapper">
-    <!--    <div
-      class="hero__background"
+    <div
+      class="hero__background loaded"
       data-scroll
       data-scroll-repeat="true"
       data-scroll-sticky="true"
@@ -15,7 +15,7 @@
         :wallpaper="true"
         :scroll="scroll"
       ></ContentVideo>
-    </div> -->
+    </div>
     <nav-sticky
       data-scroll
       data-scroll-sticky
@@ -31,7 +31,7 @@
       data-scroll-call="hero"
       data-scroll-repeat="true"
     >
-      <transition name="fade" appear>
+      <!--  <transition name="fade" appear>
         <div v-if="!ready" class="loading-msg">
           <h3>Please wait, red hot ideas brewing!</h3>
         </div>
@@ -45,7 +45,7 @@
           :scroll="scroll"
           :load-fn="onLoad"
         ></scroll-trigger-images>
-      </transition>
+      </transition> -->
       <article
         id="hero-text"
         :class="['hero__content', { hide: !ready }]"
@@ -96,6 +96,21 @@
         </div>
       </article>
     </section>
+    <transition appear name="slide-down">
+      <nav-desktop v-show="showUi" ref="nav" :scroll="scroll" />
+    </transition>
+    <transition name="slow-fade" appear>
+      <div
+        v-show="showUi"
+        ref="logo-peel"
+        class="circa-logo logo-corner-left"
+        aria-label="circa Logo"
+      >
+        <nuxt-link to="/">
+          <logo />
+        </nuxt-link>
+      </div>
+    </transition>
     <section
       id="about-wrapper"
       class="about__container"
@@ -447,9 +462,9 @@
 // import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
-/* import Logo from "~/assets/circa_logo_nofill.svg?inline"; */
 import Arrow from "~/assets/down_arrow.svg?inline";
 import copyline from "~/components/span.vue";
+import Logo from "~/assets/circa_logo_nofill.svg?inline";
 
 const urlBuilder = imageUrlBuilder(sanityClient);
 
@@ -488,7 +503,7 @@ const query = `{
 }`;
 export default {
   components: {
-    /*   Logo, */
+    Logo,
     Arrow,
   },
   async asyncData() {
@@ -506,6 +521,7 @@ export default {
       dark: false,
       resizeTimeout: 0,
       scroll: {},
+      showUi: false,
       showPrompt: false,
       ready: false,
       serializers: {
@@ -562,6 +578,9 @@ export default {
     });
     gsap.registerPlugin(ScrollTrigger);
     console.log(this.assets);
+    setTimeout(() => {
+      this.onLoad();
+    }, 1000);
   },
   methods: {
     init() {
@@ -645,12 +664,22 @@ export default {
     },
     onLoad() {
       this.ready = true;
+      /*   const logoEl = this.$refs["logo-peel"];
+      gsap.fromTo(
+        logoEl,
+        { x: "-100%" },
+        { x: 0, duration: 1, ease: "Power2.easeOut" }
+      ); */
+      setTimeout(() => {
+        this.showUi = true;
+      }, 500);
       setTimeout(() => {
         this.showPrompt = true;
       }, 3000);
       this.$nextTick(() => {
         this.splitText();
         this.scroll.start();
+        ScrollTrigger.refresh();
         this.updateScroll();
       });
     },

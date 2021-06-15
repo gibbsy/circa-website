@@ -16,14 +16,7 @@
         :scroll="scroll"
       ></ContentVideo>
     </div>
-    <nav-sticky
-      data-scroll
-      data-scroll-sticky
-      data-scroll-target="#page-wrapper"
-      :active="navActive"
-      :scroll="scroll"
-      :dark="dark"
-    />
+
     <section
       id="hero"
       class="hero__container"
@@ -465,6 +458,14 @@
         </div>
       </div>
     </section>
+    <nav-sticky
+      data-scroll
+      data-scroll-sticky
+      data-scroll-target="#page-wrapper"
+      :active="navActive"
+      :scroll="scroll"
+      :dark="dark"
+    />
     <footer></footer>
   </div>
 </template>
@@ -643,9 +644,8 @@ export default {
       window.addEventListener("resize", this.handleResize);
       this.scroll.on("call", (value, way, obj) => {
         if (value === "hero") {
-          if (this.isMobile) {
-            return;
-          }
+          // console.log("HERO");
+
           if (way === "exit") {
             this.navActive = true;
           } else {

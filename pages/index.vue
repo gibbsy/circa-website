@@ -119,8 +119,6 @@
         ></div>
       </div>
       <div class="about__content">
-        <!-- <div id="scroll-trigger-2"></div> -->
-        <!-- <div class="about__bg-right clip-left"></div> -->
         <div
           class="about__title title-reveal"
           data-scroll
@@ -145,9 +143,6 @@
       </div>
     </section>
     <section id="services-wrapper" class="services__container" data-scroll>
-      <!-- <div class="services-texture-bg full-width">
-        <div class="inner-texture" data-scroll data-scroll-speed="-3"></div>
-      </div> -->
       <div
         class="section-hero-image__wrapper services"
         data-scroll

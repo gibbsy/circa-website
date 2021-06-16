@@ -301,7 +301,7 @@
             class="logos-row-1 logo-row"
             data-scroll
             data-scroll-direction="horizontal"
-            data-scroll-speed="5"
+            data-scroll-speed="20"
           >
             <div
               v-for="(logo, i) in clientLogos.r1"
@@ -326,7 +326,7 @@
             class="logos-row-2 logo-row"
             data-scroll
             data-scroll-direction="horizontal"
-            data-scroll-speed="-5"
+            data-scroll-speed="-20"
           >
             <div
               v-for="(logo, i) in clientLogos.r2"

@@ -79,56 +79,6 @@
   }
 }
 
-/* .image-reveal {
-  @include abs100();
-  width: calc(50% + 18vh);
-  &.pull-left {
-    background: $darkBlue;
-    .inner-texture {
-      background: url("~/assets/tex-hex.jpg") repeat 0/30%;
-    }
-  }
-  &.pull-right {
-    background: $teal;
-    .inner-texture {
-      background: url("~/assets/tex-chevrons.jpg") repeat 0/50%;
-    }
-  }
-} */
-/* .hero-logo {
-  @include abs100();
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    max-width: 50%;
-  }
-  &.left {
-  }
-  svg {
-    width: 800px;
-    fill: #fff;
-  }
-} */
-/* .bg-5 {
-  background: $violet;
-  .inner-texture {
-    background: url("~/assets/tex-hex.jpg") repeat 0/30%;
-  }
-  .hero-logo svg {
-    margin-right: auto;
-  }
-}
-
-.bg-6 {
-  background: $teal;
-  .inner-texture {
-    background: url("~/assets/tex-chevrons.jpg") repeat 0/50%;
-  }
-  .hero-logo svg {
-    margin-left: auto;
-  }
-} */
 .pull-left {
   @include clip-edge(right);
   left: 0;

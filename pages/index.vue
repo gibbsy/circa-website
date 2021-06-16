@@ -1,7 +1,7 @@
 <template>
   <div id="page-wrapper" ref="scroll" class="home page-wrapper">
     <section
-      id="hero"
+      id="hero-container"
       class="hero__container"
       data-scroll
       data-scroll-call="hero"
@@ -12,7 +12,7 @@
         data-scroll
         data-scroll-repeat="true"
         data-scroll-sticky="true"
-        data-scroll-target="#hero"
+        data-scroll-target="#hero-container"
         data-scroll-speed="-10"
       >
         <HeroVideo
@@ -72,33 +72,29 @@
         </div>
       </article>
     </section>
-    <transition appear name="slide-down">
-      <nav-desktop
-        v-show="showUi"
-        ref="nav"
-        :scroll="scroll"
-        data-scroll
-        data-scroll-repeat="true"
-        data-scroll-sticky="true"
-        data-scroll-target="#hero"
-      />
-    </transition>
-    <transition name="fade" appear>
-      <div
-        v-show="showUi"
-        ref="logo-peel"
-        class="circa-logo logo-corner-left"
-        aria-label="circa Logo"
-        data-scroll
-        data-scroll-repeat="true"
-        data-scroll-sticky="true"
-        data-scroll-target="#hero"
-      >
-        <nuxt-link to="/">
-          <logo />
-        </nuxt-link>
-      </div>
-    </transition>
+    <nav-desktop
+      v-show="showUi"
+      ref="nav"
+      :scroll="scroll"
+      data-scroll
+      data-scroll-repeat="true"
+      data-scroll-sticky="true"
+      data-scroll-target="#hero-container"
+    />
+    <div
+      v-show="showUi"
+      ref="logo-peel"
+      class="circa-logo logo-corner-left"
+      aria-label="circa Logo"
+      data-scroll
+      data-scroll-repeat="true"
+      data-scroll-sticky="true"
+      data-scroll-target="#hero-container"
+    >
+      <nuxt-link to="/">
+        <logo />
+      </nuxt-link>
+    </div>
     <section
       id="about-wrapper"
       class="about__container"

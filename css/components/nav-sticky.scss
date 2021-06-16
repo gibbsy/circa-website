@@ -3,13 +3,16 @@
   pointer-events: none;
 }
 .nav__sticky-wrapper {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
   z-index: -2;
   pointer-events: none;
+  @include bp(1600) {
+    height: 70px;
+  }
   &.active {
     z-index: 200;
     pointer-events: initial;
@@ -30,7 +33,9 @@
   opacity: 0;
   transition: transform 0.8s $easing, opacity 0.3s $easing,
     background-color 0.3s ease;
-
+  @include bp(1600) {
+    height: 70px;
+  }
   .circa-logo {
     position: absolute;
     left: 0;
@@ -44,6 +49,10 @@
     align-items: center;
     justify-content: center;
     @include clip-edge-h(right, 60px);
+    @include bp(1600) {
+      height: 70px;
+      @include clip-edge-h(right, 70px);
+    }
     svg {
       fill: #ccc;
     }
@@ -51,7 +60,10 @@
       position: absolute;
       display: inline-block;
       // left: 10%;
-      width: 70px;
+      width: 60px;
+      @include bp(1600) {
+        width: 70px;
+      }
 
       svg {
         fill: #fff;

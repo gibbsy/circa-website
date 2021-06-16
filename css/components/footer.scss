@@ -22,11 +22,11 @@ footer {
 }
 .footer__bg-stripe {
   position: absolute;
-  width: 20%;
+  width: 32%;
   top: 0;
   height: 50vh;
-  right: -10%;
-  background: $slate;
+  right: 0;
+  background: rgba(0, 0, 0, 20%);
   @include clip-edge-h(left, 50vh);
 }
 .footer__col {

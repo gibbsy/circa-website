@@ -1,7 +1,7 @@
 .clients__container {
   @extend .section-container;
   // height: 120vh;
-  background: lighten($anthracite, 15%);
+  background: $darkTeal;
   color: #fff;
 }
 .clients__content {

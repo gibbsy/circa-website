@@ -1,7 +1,7 @@
 .about__container {
   @extend .section-container;
   position: relative;
-  background: $anthracite;
+  background: $darkBlue;
   color: #fff;
   max-width: 100vw;
   overflow: hidden;
@@ -19,8 +19,8 @@
   .about-texture-bg.pull-right {
     @include abs100();
     width: 200%;
-    left: 45%;
-    background: lighten($anthracite, 20%);
+    left: 0;
+    background: $teal;
     clip-path: polygon(
       calc(0.36397023426 * 400vh) 0,
       100% 0,

@@ -1,22 +1,5 @@
 <template>
   <div id="page-wrapper" ref="scroll" class="home page-wrapper">
-    <div
-      class="hero__background loaded"
-      data-scroll
-      data-scroll-repeat="true"
-      data-scroll-sticky="true"
-      data-scroll-target="#hero"
-      data-scroll-speed="-10"
-    >
-      <ContentVideo
-        player-id="textures"
-        vimeo-id="560926320"
-        :autoplay="true"
-        :wallpaper="true"
-        :scroll="scroll"
-      ></ContentVideo>
-    </div>
-
     <section
       id="hero"
       class="hero__container"
@@ -24,21 +7,22 @@
       data-scroll-call="hero"
       data-scroll-repeat="true"
     >
-      <!--  <transition name="fade" appear>
-        <div v-if="!ready" class="loading-msg">
-          <h3>Please wait, red hot ideas brewing!</h3>
-        </div>
-      </transition>
-      <div id="scroll-trigger-1" class="target"></div>
-      <transition name="slow-fade" appear>
-        <scroll-trigger-images
-          v-if="assets.animalImages.length"
-          :animal-images="assets.animalImages"
-          :img-res="imgRes"
+      <div
+        class="hero__background loaded"
+        data-scroll
+        data-scroll-repeat="true"
+        data-scroll-sticky="true"
+        data-scroll-target="#hero"
+        data-scroll-speed="-10"
+      >
+        <ContentVideo
+          player-id="textures"
+          vimeo-id="560926320"
+          :autoplay="true"
+          :wallpaper="true"
           :scroll="scroll"
-          :load-fn="onLoad"
-        ></scroll-trigger-images>
-      </transition> -->
+        ></ContentVideo>
+      </div>
       <article
         id="hero-text"
         :class="['hero__content', { hide: !ready }]"
@@ -637,15 +621,16 @@ export default {
       ScrollTrigger.addEventListener("refresh", () => scroller.update()); // locomotive-scroll
       ScrollTrigger.refresh();
       this.scroll = scroller;
-      // scroller.stop();
-      this.initScrollEvents();
+      this.$nextTick(() => {
+        this.initScrollEvents();
+      });
     },
     initScrollEvents() {
       window.addEventListener("resize", this.handleResize);
       this.scroll.on("call", (value, way, obj) => {
         if (value === "hero") {
           // console.log("HERO");
-
+          console.log(way);
           if (way === "exit") {
             this.navActive = true;
           } else {

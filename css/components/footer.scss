@@ -3,9 +3,10 @@ footer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 6rem 10%;
+  padding: 4rem 10%;
   background: $black;
   color: #fff;
+  overflow: hidden;
   h2 {
     font-size: 1.4rem;
   }
@@ -16,10 +17,18 @@ footer {
 
 .footer__main {
   position: relative;
-  justify-content: space-between;
+  justify-content: flex-end;
   display: flex;
 }
-
+.footer__bg-stripe {
+  position: absolute;
+  width: 20%;
+  top: 0;
+  height: 50vh;
+  right: -10%;
+  background: $slate;
+  @include clip-edge-h(left, 50vh);
+}
 .footer__col {
   > * {
     margin-top: 3rem;
@@ -41,7 +50,10 @@ footer {
 }
 
 .footer__logo {
-  width: 120px;
+  width: 100px;
+  @include bp(768) {
+    width: 150px;
+  }
   svg.logo__stacked {
     width: 100% !important;
   }
@@ -51,21 +63,23 @@ footer {
 }
 
 .footer__legals {
-  margin-top: 50px;
+  position: relative;
+  margin-top: 80px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column-reverse;
   @include bp(768) {
-    margin-top: 100px;
+    margin-top: 140px;
     align-items: flex-end;
     flex-direction: row;
   }
   p,
   li,
   a {
-    color: $darkTeal;
+    color: $lightGrey;
     font-size: 0.8rem;
+
     @include bp(768) {
       font-size: 1rem;
     }
@@ -97,12 +111,13 @@ footer {
     a {
       text-decoration: none;
       &:hover {
-        // color: $lightGrey;
+        color: #fff;
+        text-decoration: underline;
       }
       &:visited {
-        // color: $midPurple;
+        color: $lightGrey;
         &:hover {
-          // color: $lightGrey;
+          color: $lightGrey;
         }
       }
     }

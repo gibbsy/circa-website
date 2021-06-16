@@ -8,20 +8,19 @@
       data-scroll-repeat="true"
     >
       <div
-        class="hero__background loaded"
+        :class="['hero__background', { dark: showUi }]"
         data-scroll
         data-scroll-repeat="true"
         data-scroll-sticky="true"
         data-scroll-target="#hero"
         data-scroll-speed="-10"
       >
-        <ContentVideo
+        <HeroVideo
           player-id="textures"
-          vimeo-id="560926320"
-          :autoplay="true"
-          :wallpaper="true"
+          vimeo-id="563685796"
           :scroll="scroll"
-        ></ContentVideo>
+          :ready-fn="onLoad"
+        ></HeroVideo>
       </div>
       <article
         id="hero-text"
@@ -84,7 +83,7 @@
         data-scroll-target="#hero"
       />
     </transition>
-    <transition name="slow-fade" appear>
+    <transition name="fade" appear>
       <div
         v-show="showUi"
         ref="logo-peel"
@@ -280,6 +279,7 @@
           data-scroll
           data-scroll-speed="-2"
           data-scroll-offset="20%"
+          data-scroll-repeat
         >
           <div
             class="logos-row-1 logo-row"
@@ -450,7 +450,7 @@
       :scroll="scroll"
       :dark="dark"
     />
-    <footer></footer>
+    <app-footer />
   </div>
 </template>
 
@@ -574,11 +574,6 @@ export default {
     this.$nextTick(() => {
       this.init();
     });
-
-    console.log(this.assets);
-    setTimeout(() => {
-      this.onLoad();
-    }, 1000);
   },
   methods: {
     init() {
@@ -670,6 +665,7 @@ export default {
       ); */
       setTimeout(() => {
         this.showUi = true;
+        document.body.style.setProperty("--bg-root", "#00304d");
         ScrollTrigger.refresh();
         this.updateScroll();
       }, 500);

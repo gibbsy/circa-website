@@ -16,9 +16,6 @@
 
 .clients__body {
   width: 60%;
-  p {
-    font-size: 1.5rem;
-  }
 }
 
 .clients__logos {
@@ -35,9 +32,11 @@
     display: flex;
     &.logos-row-1 {
       margin-left: auto;
+      padding-right: 20vw;
     }
     &.logos-row-2 {
       margin-top: 6rem;
+      padding-left: 20vw;
     }
   }
   .logo-wrapper {

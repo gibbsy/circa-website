@@ -59,13 +59,13 @@
     > * {
       margin-right: 2rem;
       @include bp(1024) {
-        margin-right: 3rem;
+        margin-right: 2rem;
       }
       @include bp(1200) {
-        margin-right: 4rem;
+        margin-right: 3rem;
       }
-      @include bp(2000) {
-        margin-right: 5rem;
+      @include bp(1600) {
+        margin-right: 4rem;
       }
       &:last-child {
         margin-right: 0;
@@ -80,7 +80,6 @@
       a {
         position: relative;
         color: #fff;
-        font-size: 1.2rem;
         letter-spacing: 1px;
         font-weight: 500;
         display: flex;

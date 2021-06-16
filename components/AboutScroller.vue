@@ -77,9 +77,6 @@ export default {
       const scrollContainer = document.getElementById("page-wrapper");
       const images = document.getElementById("about-images-container");
       const stats = document.getElementById("about-stats-container");
-      const scrollerWidth = images.offsetWidth;
-      const scrollLength = scrollerWidth - window.innerWidth;
-      console.log(scrollerWidth, scrollLength);
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -87,7 +84,6 @@ export default {
           trigger: "#about-wrapper",
           start: "top top",
           scrub: true,
-          // markers: true,
           pin: true,
           end: "+=200%",
         },
@@ -95,7 +91,6 @@ export default {
       tl.to(
         images,
         {
-          // x: `-=${scrollLength}`,
           x: "-=100%",
           duration: 4,
           ease: "sine.inOut",
@@ -105,7 +100,6 @@ export default {
       tl.to(
         stats,
         {
-          // x: `-=${scrollLength}`,
           x: "-=100%",
           duration: 4,
           ease: "sine.inOut",
@@ -114,29 +108,7 @@ export default {
       );
       this.$nextTick(() => {
         this.updateScroll();
-        ScrollTrigger.refresh();
       });
-
-      /*    const pinBoxes = document.querySelectorAll(".pin-wrap > *");
-      const pinWrap = document.querySelector(".pin-wrap");
-      const pinWrapWidth = pinWrap.offsetWidth;
-      const horizontalScrollLength = pinWrapWidth - window.innerWidth;
-
-      // Pinning and horizontal scrolling
-
-      gsap.to(".pin-wrap", {
-        scrollTrigger: {
-          scroller: pageContainer, // locomotive-scroll
-          scrub: true,
-          trigger: "#sectionPin",
-          pin: true,
-          // anticipatePin: 1,
-          start: "top top",
-          end: pinWrapWidth,
-        },
-        x: -horizontalScrollLength,
-        ease: "none",
-      }); */
     },
     urlFor(source) {
       return urlBuilder.image(source);

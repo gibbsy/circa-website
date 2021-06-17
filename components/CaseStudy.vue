@@ -99,6 +99,7 @@
                       : imgRes.width / 3
                   )
                   .format('jpg')
+                  .bg('fff')
                   .quality(50)
                   .url()
               "

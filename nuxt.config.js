@@ -83,6 +83,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     [
+      "@nuxtjs/gtm",
       "nuxt-lazy-load",
       {
         // These are the default values
@@ -111,6 +112,9 @@ export default {
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
   ],
+  gtm: {
+    id: "GTM-M76Q9KJ",
+  },
   sitemap: {
     hostname: "https://www.circahealthcare.co.uk",
     routes: ["/legal/privacy-policy", "legal/disclaimer"],

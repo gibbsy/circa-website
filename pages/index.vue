@@ -1,5 +1,6 @@
 <template>
   <div id="page-wrapper" ref="scroll" class="home page-wrapper">
+    <div id="sticky-nav-target"></div>
     <section
       id="hero-container"
       class="hero__container"
@@ -156,7 +157,8 @@
           :alt="services.servicesImage.title"
           :style="{
             backgroundImage: `url('${urlFor(services.servicesImage.asset)
-              .width(imgRes.width)
+              .width(imgRes.width / 2)
+              .height(imgRes.height / 2)
               .format('jpg')
               .quality(50)
               .saturation(-100)
@@ -341,6 +343,111 @@
         </div>
       </div>
     </section>
+    <section id="work-wrapper" class="work__container" data-scroll>
+      <div
+        class="section-hero-image__wrapper work"
+        data-scroll
+        data-scroll-offset="20%"
+      >
+        <figure
+          class="section-hero-image__inner work"
+          data-scroll
+          data-scroll-direction="horizontal"
+          data-scroll-speed="-1"
+          :alt="work.workImage.title"
+          :style="{
+            backgroundImage: `url('${urlFor(work.workImage.asset)
+              .width(imgRes.width / 2)
+              .height(imgRes.height / 2)
+              .format('jpg')
+              .quality(50)
+              .saturation(-100)
+              .url()}')`,
+          }"
+        ></figure>
+      </div>
+      <div
+        class="work-texture-bg pull-right"
+        data-scroll
+        data-scroll-direction="horizontal"
+        data-scroll-speed="2"
+      >
+        <div
+          class="inner-texture"
+          data-scroll
+          data-scroll-direction="horizontal"
+          data-scroll-speed="-2"
+        ></div>
+      </div>
+      <div
+        class="work-texture-bg pull-left"
+        data-scroll
+        data-scroll-direction="horizontal"
+        data-scroll-speed="-2"
+      >
+        <div
+          class="inner-texture"
+          data-scroll
+          data-scroll-direction="horizontal"
+          data-scroll-speed="2"
+        ></div>
+      </div>
+      <div class="work__content">
+        <div
+          class="section-caption-wrapper"
+          data-scroll
+          data-scroll-offset="30%"
+        >
+          <h3 class="section-caption">Our work</h3>
+        </div>
+        <div
+          class="work__title title-reveal"
+          data-scroll
+          data-splitting
+          data-scroll-offset="30%"
+        >
+          <block-content
+            :blocks="work.workTitle"
+            :serializers="serializers"
+          ></block-content>
+        </div>
+        <div
+          class="work__body body-copy"
+          data-scroll
+          data-scroll-speed="2"
+          data-scroll-offset="30%"
+        >
+          <block-content :blocks="work.workBody"></block-content>
+          <a
+            class="cta-link"
+            @click.prevent="
+              scrollTo('#connect-wrapper', {
+                offset: 0,
+                duration: 1000,
+              })
+            "
+            >{{ work.workCta }}</a
+          >
+        </div>
+
+        <!-- CASE STUDIES -->
+      </div>
+    </section>
+    <section
+      class="case-studies__container"
+      data-scroll
+      data-scroll-call="cases"
+      data-scroll-repeat
+      data-scroll-offset="100%"
+    >
+      <case-study
+        v-for="project in work.caseStudies"
+        :key="project.product"
+        :content="project"
+        :scroll="scroll"
+        :img-res="imgRes"
+      ></case-study>
+    </section>
     <section id="connect-wrapper" class="connect__container" data-scroll>
       <div
         class="section-hero-image__wrapper connect --left"
@@ -436,7 +543,7 @@
     <nav-sticky
       data-scroll
       data-scroll-sticky
-      data-scroll-target="#page-wrapper"
+      data-scroll-target="#sticky-nav-target"
       :active="navActive"
       :scroll="scroll"
       :dark="dark"
@@ -459,11 +566,7 @@ const urlBuilder = imageUrlBuilder(sanityClient);
 if (typeof window === "undefined") {
   global.window = {};
 }
-const winSize = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-  dpr: window.devicePixelRatio,
-};
+
 const query = `{
   "config": *[_type=="siteConfig"]{"title": siteTitle, "description": siteDescription},
   "assets": *[_type=="brandAssets"]{ animalImages },
@@ -482,7 +585,10 @@ const query = `{
         name, logo
       }
     },
-    caseStudies,
+    "work": {
+      workTitle, workBody, workCta, workImage,
+      caseStudies[],
+    },
     "connect": {
       connectTitle, connectIntro, connectImageLeft, connectImageRight, contactDetails
     }
@@ -512,6 +618,7 @@ export default {
       showUi: false,
       showPrompt: false,
       ready: false,
+      winSize: { width: -1, height: -1, dpr: -1 },
       serializers: {
         marks: {
           span: copyline,
@@ -534,7 +641,7 @@ export default {
   },
   computed: {
     imgRes() {
-      const { width, height, dpr } = winSize;
+      const { width, height, dpr } = this.winSize;
       const imgRes = { dpr: dpr === 3 ? 2 : 1 };
       if (width > 1440) {
         imgRes.width = 1920;
@@ -562,9 +669,15 @@ export default {
   },
   mounted() {
     gsap.registerPlugin(ScrollTrigger);
-    this.$nextTick(() => {
-      this.init();
-    });
+    this.setWinsize();
+    this.init();
+    this.$nextTick(() => {});
+  },
+  beforeDestroy() {
+    console.log("destroy scroll");
+    window.removeEventListener("resize", this.handleResize);
+    this.scroll.destroy();
+    this.scroll = null;
   },
   methods: {
     init() {
@@ -572,6 +685,13 @@ export default {
     },
     urlFor(source) {
       return urlBuilder.image(source);
+    },
+    setWinsize() {
+      this.winSize = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        dpr: window.devicePixelRatio,
+      };
     },
     initScroll() {
       const el = this.$refs.scroll;
@@ -616,11 +736,18 @@ export default {
       this.scroll.on("call", (value, way, obj) => {
         if (value === "hero") {
           // console.log("HERO");
-          console.log(way);
           if (way === "exit") {
             this.navActive = true;
           } else {
             this.navActive = false;
+          }
+        }
+        if (value === "cases") {
+          console.log(value, way, obj);
+          if (way === "enter") {
+            this.dark = true;
+          } else if (way === "exit") {
+            this.dark = false;
           }
         }
       });

@@ -1,5 +1,6 @@
 #sticky-nav-target {
   @include abs100();
+  width: 2px;
   pointer-events: none;
 }
 .nav__sticky-wrapper {
@@ -90,13 +91,14 @@
     }
   }
   &.dark {
-    background-color: rgba($black, 0.9);
+    background-color: $anthracite;
     &:hover {
       background-color: $black;
     }
     .circa-logo {
+      background: #fff;
       svg {
-        fill: #fff;
+        fill: $black;
       }
     }
     .nav__links-desktop {

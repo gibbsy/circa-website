@@ -2,8 +2,8 @@ $connectHeight: 100vh;
 .connect__container {
   @extend .section-container;
   height: $connectHeight;
-  background: #eaeaea;
-  color: $black;
+  background: $darkTeal;
+  color: #fff;
 }
 .connect__content {
   @extend .content-block;
@@ -51,7 +51,7 @@ $connectHeight: 100vh;
     0 100%
   );
   left: 70%;
-  width: 36vw;
+  width: 46vw;
   .section-hero-image__inner {
     left: -30%;
   }
@@ -61,8 +61,8 @@ $connectHeight: 100vh;
 }
 
 .section-hero-image__wrapper.connect.--left {
-  width: 30vw;
-  left: -6vw;
+  width: 45vw;
+  left: -16vw;
   height: $connectHeight;
   bottom: 0;
   top: auto;

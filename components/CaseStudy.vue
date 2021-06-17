@@ -13,12 +13,15 @@
         data-scroll-speed="-1"
         :alt="content.hero.title"
         :style="{
-          backgroundImage: `url('${urlFor(content.hero.asset)
-            .width(imgRes.width / 2)
-            .height(imgRes.height / 2)
-            .format('jpg')
-            .quality(50)
-            .url()}')`,
+          backgroundImage:
+            imgRes.width > 1
+              ? `url('${urlFor(content.hero.asset)
+                  .width(imgRes.width / 3)
+                  .height(imgRes.height / 2)
+                  .format('jpg')
+                  .quality(50)
+                  .url()}')`
+              : 'none',
         }"
       ></figure>
     </div>
@@ -92,16 +95,18 @@
             <img
               v-lazy-load
               :src="
-                urlFor(img.asset)
-                  .width(
-                    img.orientation === 'landscape'
-                      ? imgRes.width / 2
-                      : imgRes.width / 3
-                  )
-                  .format('jpg')
-                  .bg('fff')
-                  .quality(50)
-                  .url()
+                imgRes.width > 1
+                  ? urlFor(img.asset)
+                      .width(
+                        img.orientation === 'landscape'
+                          ? imgRes.width / 2
+                          : imgRes.width / 3
+                      )
+                      .format('jpg')
+                      .bg('fff')
+                      .quality(50)
+                      .url()
+                  : ''
               "
               alt=""
             />

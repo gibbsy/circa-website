@@ -156,13 +156,16 @@
           data-scroll-speed="-1"
           :alt="services.servicesImage.title"
           :style="{
-            backgroundImage: `url('${urlFor(services.servicesImage.asset)
-              .width(imgRes.width / 2)
-              .height(imgRes.height / 2)
-              .format('jpg')
-              .quality(50)
-              .saturation(-100)
-              .url()}')`,
+            backgroundImage:
+              imgRes.width > 1
+                ? `url('${urlFor(services.servicesImage.asset)
+                    .width(imgRes.width / 2)
+                    .height(imgRes.height / 2)
+                    .format('jpg')
+                    .quality(50)
+                    .saturation(-100)
+                    .url()}')`
+                : 'none',
           }"
         ></figure>
       </div>
@@ -356,13 +359,16 @@
           data-scroll-speed="-1"
           :alt="work.workImage.title"
           :style="{
-            backgroundImage: `url('${urlFor(work.workImage.asset)
-              .width(imgRes.width / 2)
-              .height(imgRes.height / 2)
-              .format('jpg')
-              .quality(50)
-              .saturation(-100)
-              .url()}')`,
+            backgroundImage:
+              imgRes.width > 1
+                ? `url('${urlFor(work.workImage.asset)
+                    .width(imgRes.width / 2)
+                    .height(imgRes.height / 2)
+                    .format('jpg')
+                    .quality(50)
+                    .saturation(-100)
+                    .url()}')`
+                : 'none',
           }"
         ></figure>
       </div>
@@ -438,7 +444,7 @@
       data-scroll
       data-scroll-call="cases"
       data-scroll-repeat
-      data-scroll-offset="100%"
+      :data-scroll-offset="navOffset"
     >
       <case-study
         v-for="project in work.caseStudies"
@@ -463,13 +469,16 @@
           data-scroll-speed="-1"
           :alt="connect.connectImageLeft.title"
           :style="{
-            backgroundImage: `url('${urlFor(connect.connectImageLeft.asset)
-              .width(imgRes.width * 0.5)
-              .height(imgRes.height)
-              .format('jpg')
-              .quality(50)
-              .saturation(-100)
-              .url()}')`,
+            backgroundImage:
+              imgRes.width > 1
+                ? `url('${urlFor(connect.connectImageLeft.asset)
+                    .width(imgRes.width * 0.5)
+                    .height(imgRes.height)
+                    .format('jpg')
+                    .quality(50)
+                    .saturation(-100)
+                    .url()}')`
+                : 'none',
           }"
         ></figure>
       </div>
@@ -487,13 +496,16 @@
           data-scroll-speed="1"
           :alt="connect.connectImageRight.title"
           :style="{
-            backgroundImage: `url('${urlFor(connect.connectImageRight.asset)
-              .width(imgRes.width * 0.5)
-              .height(imgRes.height)
-              .format('jpg')
-              .quality(50)
-              .saturation(-100)
-              .url()}')`,
+            backgroundImage:
+              imgRes.width > 1
+                ? `url('${urlFor(connect.connectImageRight.asset)
+                    .width(imgRes.width * 0.5)
+                    .height(imgRes.height)
+                    .format('jpg')
+                    .quality(50)
+                    .saturation(-100)
+                    .url()}')`
+                : 'none',
           }"
         ></figure>
       </div>
@@ -564,7 +576,7 @@ import Logo from "~/assets/circa_logo_nofill.svg?inline";
 const urlBuilder = imageUrlBuilder(sanityClient);
 
 if (typeof window === "undefined") {
-  global.window = {};
+  global.window = { innerWidth: 0, innerHeight: 0, devicePixelRatio: 0 };
 }
 
 const query = `{
@@ -618,7 +630,8 @@ export default {
       showUi: false,
       showPrompt: false,
       ready: false,
-      winSize: { width: -1, height: -1, dpr: -1 },
+      imgRes: { width: 1, height: 1, dpr: 1 },
+      navOffset: "100%, 60",
       serializers: {
         marks: {
           span: copyline,
@@ -640,23 +653,6 @@ export default {
     };
   },
   computed: {
-    imgRes() {
-      const { width, height, dpr } = this.winSize;
-      const imgRes = { dpr: dpr === 3 ? 2 : 1 };
-      if (width > 1440) {
-        imgRes.width = 1920;
-        imgRes.height = 1080;
-      } else if (width > 1024) {
-        imgRes.width = 1440;
-        imgRes.height = 900;
-      } else if (width >= 768) {
-        imgRes.width = 800;
-      } else {
-        imgRes.width = 400;
-      }
-      imgRes.height = Math.round(height * 0.8);
-      return imgRes;
-    },
     clientLogos() {
       const logos = this.clients.clients;
       const r1 = logos.slice(0, logos.length / 2);
@@ -669,7 +665,7 @@ export default {
   },
   mounted() {
     gsap.registerPlugin(ScrollTrigger);
-    this.setWinsize();
+    this.setImgRes();
     this.init();
     this.$nextTick(() => {});
   },
@@ -686,12 +682,24 @@ export default {
     urlFor(source) {
       return urlBuilder.image(source);
     },
-    setWinsize() {
-      this.winSize = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        dpr: window.devicePixelRatio,
-      };
+    setImgRes() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const dpr = window.devicePixelRatio;
+      const res = {};
+      if (width > 1440) {
+        res.width = 1920;
+        res.height = 1080;
+      } else if (width > 1024) {
+        res.width = 1440;
+        res.height = 900;
+      } else if (width >= 768) {
+        res.width = 800;
+      } else {
+        res.width = 400;
+      }
+      res.height = Math.round(height * 0.8);
+      this.imgRes = { ...res, dpr };
     },
     initScroll() {
       const el = this.$refs.scroll;
@@ -733,6 +741,10 @@ export default {
     },
     initScrollEvents() {
       window.addEventListener("resize", this.handleResize);
+      const nav = document.getElementById("nav-sticky");
+      const navHeight = nav.offsetHeight;
+      this.navOffset = `${window.innerHeight - navHeight}, ${navHeight}`;
+
       this.scroll.on("call", (value, way, obj) => {
         if (value === "hero") {
           // console.log("HERO");

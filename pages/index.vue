@@ -707,7 +707,7 @@ export default {
     },
   },
   mounted() {
-    if (mobile()) {
+    if (mobile({ tablet: true })) {
       this.isMobile = true;
     }
     gsap.registerPlugin(ScrollTrigger);

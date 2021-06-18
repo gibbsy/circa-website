@@ -156,6 +156,9 @@
     display: flex;
     text-shadow: 0 0 10px #000;
     flex-direction: column;
+    @include bp(1024) {
+      flex-direction: row;
+    }
     &:first-child {
       margin-left: 0;
     }

@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     initScrollAni() {
-      if (mobile()) {
+      if (mobile({ tablet: true })) {
         this.isMobile = true;
         return;
       }

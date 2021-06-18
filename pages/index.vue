@@ -159,8 +159,8 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(services.servicesImage.asset)
-                    .width(imgRes.width / 2)
-                    .height(imgRes.height / 2)
+                    .width(Math.floor(imgRes.width / 2))
+                    .height(Math.floor(imgRes.height / 2))
                     .format('jpg')
                     .quality(50)
                     .saturation(-100)
@@ -362,8 +362,8 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(work.workImage.asset)
-                    .width(imgRes.width / 2)
-                    .height(imgRes.height / 2)
+                    .width(Math.floor(imgRes.width / 2))
+                    .height(Math.floor(imgRes.height / 2))
                     .format('jpg')
                     .quality(50)
                     .saturation(-100)
@@ -472,8 +472,8 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(connect.connectImageLeft.asset)
-                    .width(imgRes.width * 0.5)
-                    .height(imgRes.height)
+                    .width(Math.floor(imgRes.width * 0.5))
+                    .height(Math.floor(imgRes.height))
                     .format('jpg')
                     .quality(50)
                     .saturation(-100)
@@ -499,8 +499,8 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(connect.connectImageRight.asset)
-                    .width(imgRes.width * 0.5)
-                    .height(imgRes.height)
+                    .width(Math.floor(imgRes.width * 0.5))
+                    .height(Math.floor(imgRes.height))
                     .format('jpg')
                     .quality(50)
                     .saturation(-100)

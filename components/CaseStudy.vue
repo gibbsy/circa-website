@@ -16,8 +16,8 @@
           backgroundImage:
             imgRes.width > 1
               ? `url('${urlFor(content.hero.asset)
-                  .width(imgRes.width / 3)
-                  .height(imgRes.height / 2)
+                  .width(Math.floor(imgRes.width / 3))
+                  .height(Math.floor(imgRes.height / 2))
                   .format('jpg')
                   .quality(50)
                   .url()}')`
@@ -97,14 +97,14 @@
               :src="
                 imgRes.width > 1
                   ? urlFor(img.asset)
-                      .width(
+                      .height(
                         img.orientation === 'landscape'
-                          ? imgRes.width / 2
-                          : imgRes.width / 3
+                          ? Math.floor(imgRes.height / 1.5)
+                          : imgRes.height
                       )
                       .format('jpg')
                       .bg('fff')
-                      .quality(50)
+                      .quality(70)
                       .url()
                   : ''
               "

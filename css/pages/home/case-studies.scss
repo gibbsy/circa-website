@@ -157,18 +157,52 @@
   .case__img {
     position: relative;
     flex-shrink: 0;
-    margin-left: 6rem;
+    margin-left: 6vw;
+    overflow: hidden;
+    background-color: #f0f0f0;
     &:first-child {
       margin-left: 0;
     }
     &.landscape {
-      height: 55vh;
+      height: 50vh;
     }
     &.portrait {
       height: 70vh;
     }
     img {
+      // max-width: 100%;
+      // object-fit: contain;
+      width: auto;
       height: 100%;
     }
   }
 }
+
+/* .case__img {
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 6vw;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    &:first-child {
+      margin-left: 0;
+    }
+    &.landscape {
+      img {
+        width: 45vw;
+        height: 50vh;
+      }
+    }
+    &.portrait {
+      img {
+        width: 30vw;
+        height: 70vh;
+      }
+    }
+    img {
+      // max-width: 100%;
+      object-fit: contain;
+      // width: auto;
+      // height: 100%;
+    }
+  } */

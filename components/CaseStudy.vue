@@ -93,7 +93,6 @@
             :class="['case__img', img.orientation]"
           >
             <img
-              v-lazy-load
               :src="
                 imgRes.width > 1
                   ? urlFor(img.asset)

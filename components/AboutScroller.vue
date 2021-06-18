@@ -1,5 +1,9 @@
 <template>
-  <div class="about__scroller-wrapper" data-scroll data-scroll-offset="35%">
+  <div
+    :class="['about__scroller-wrapper', { 'is-mobile': isMobile }]"
+    data-scroll
+    data-scroll-offset="35%"
+  >
     <div
       id="about-images-container"
       ref="about-images-container"
@@ -31,6 +35,7 @@
   </div>
 </template>
 <script>
+import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
 import copyline from "~/components/span.vue";
@@ -49,6 +54,7 @@ export default {
   },
   data() {
     return {
+      isMobile: "",
       serializers: {
         marks: {
           span: copyline,
@@ -60,6 +66,7 @@ export default {
     /*  this.$nextTick(() => {
       this.initScrollAni();
     }); */
+    console.log("Mobile" + this.isMobile);
     const imgLoad = imagesLoaded(
       this.$refs["about-images-container"],
       { background: true },
@@ -80,6 +87,10 @@ export default {
   },
   methods: {
     initScrollAni() {
+      if (mobile()) {
+        this.isMobile = true;
+        return;
+      }
       const scrollContainer = document.getElementById("page-wrapper");
       const images = document.getElementById("about-images-container");
       const stats = document.getElementById("about-stats-container");

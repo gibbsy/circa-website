@@ -3,18 +3,27 @@
   background: none;
   min-height: 100vh;
   // background-color: $anthracite;
-  h1,
-  h3,
-  p {
+  h1 {
     color: #fff;
     text-shadow: 0 0 10px #000;
   }
   h3 {
+    color: #fff;
     font-weight: 700;
+    @include bp(1024) {
+      text-shadow: 0 0 10px #000;
+    }
   }
   p {
+    color: #fff;
+    @include bp(1024) {
+      text-shadow: 0 0 10px #000;
+    }
     &:not(.prompt) {
-      font-size: 1.6rem;
+      font-size: 1.3rem;
+      @include bp(1024) {
+        font-size: 1.6rem;
+      }
     }
   }
 }
@@ -24,15 +33,6 @@
   width: 100%;
   height: 100%;
   display: inline-block;
-}
-
-#scroll-trigger-1 {
-  top: 0;
-  left: 30%;
-  height: 435vh;
-  width: 20px;
-  z-index: 500;
-  // background: purple;
 }
 
 #nav-trigger {
@@ -95,12 +95,13 @@
 
 .hero__content {
   @extend .content-block;
-  // height: 100%;
   display: inline-block;
-  // margin-top: 45vh;
   padding-top: 0;
   padding-bottom: 0;
   pointer-events: none;
+  @media screen and (max-width: 1024px) {
+    padding: 0;
+  }
   &.hide {
     opacity: 0;
   }
@@ -113,8 +114,11 @@
   height: 100vh;
   .title-inner {
     position: relative;
-    margin-top: 45vh;
     transition: transform 1.2s $Power1EaseInOut;
+    margin: 40vh 0 0 30px;
+    @include bp(1200) {
+      margin: 40vh 0 0;
+    }
     &.shift {
       transform: translateY(20vh);
     }
@@ -135,9 +139,26 @@
 
 .hero__intro {
   position: relative;
-  width: 700px;
   // height: 430vh;
   display: flex;
+  background-color: $teal;
+  @include bp(1025) {
+    width: 700px;
+    background: none;
+  }
+  .intro-texture-bg.full-width {
+    @include abs100();
+    width: 100%;
+    height: 150%;
+    top: -50%;
+    @include bp(1025) {
+      display: none;
+    }
+    .inner-texture {
+      background: url("~/assets/tex-hex.jpg") repeat 0/300px;
+      opacity: 0.075;
+    }
+  }
 }
 .intro__text-reveal {
   p {
@@ -154,6 +175,10 @@
   display: flex;
   align-items: center;
   height: 100vh;
+  padding: 0 30px;
+  @include bp(1024) {
+    padding: 0;
+  }
 }
 
 .hero__scroll-prompt {
@@ -161,10 +186,17 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20vh;
+  margin-top: 3rem;
   opacity: 0;
   transform: translateY(100px);
   transition: opacity 1.2s $Power1EaseInOut, transform 1.2s $Power1EaseInOut;
+  padding: 0 30px;
+  @include bp(1024) {
+    padding: 0;
+  }
+  @include bp(1200) {
+    margin-top: 20vh;
+  }
   p {
     display: inline-block;
     opacity: 0;

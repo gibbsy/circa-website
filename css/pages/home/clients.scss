@@ -15,10 +15,13 @@
 }
 
 .clients__body {
-  width: 60%;
+  width: 100%;
+  @include bp(768) {
+    width: 60%;
+  }
 }
 
-.clients__logos {
+.clients__logos-scroller {
   position: relative;
   margin-top: 20vh;
   mix-blend-mode: multiply;
@@ -30,6 +33,7 @@
 
   .logo-row {
     display: flex;
+
     &.logos-row-1 {
       margin-left: auto;
       padding-right: 20vw;
@@ -42,11 +46,16 @@
   .logo-wrapper {
     position: relative;
     display: inline-block;
-    width: 280px;
-    height: 150px;
-    margin-left: 6rem;
+    width: 100px;
+    height: 90px;
+    margin-left: 2rem;
     background: #fff;
     padding: 0.75rem 1rem;
+    @include bp(768) {
+      margin-left: 6rem;
+      width: 280px;
+      height: 150px;
+    }
     &:first-child {
       margin-left: 0;
     }
@@ -61,6 +70,9 @@
     background-repeat: no-repeat;
     // background-blend-mode: screen;
     // mix-blend-mode: screen;
+  }
+  .is-mobile & {
+    display: none;
   }
 }
 

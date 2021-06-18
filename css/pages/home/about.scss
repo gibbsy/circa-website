@@ -21,14 +21,20 @@
     width: 200%;
     left: 20%;
     background: $teal;
-    clip-path: polygon(
-      calc(0.36397023426 * 400vh) 0,
-      100% 0,
-      100% 100%,
-      0 100%
-    );
+    @include clip-edge-h(left, 400vh);
     .inner-texture {
       background: url("~/assets/tex-worms.jpg") repeat 0/300px;
+    }
+  }
+  &.is-mobile {
+    .about-texture-bg.pull-right {
+      width: 100%;
+      height: 100vh;
+      left: auto;
+      top: auto;
+      right: -50%;
+      bottom: 0;
+      @include clip-edge-h(left, 100vh);
     }
   }
 }
@@ -39,6 +45,25 @@
   align-items: flex-start;
 }
 
+.about__title.is-mobile {
+  margin: 60px 15px 0 30px;
+}
+
+.about__body.is-mobile {
+  padding: 0 30px;
+}
+
+.about__body {
+  // margin: 50vh 0 200vh 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  &:not(.is-mobile) {
+    margin: 100vh 0 200vh 0;
+  }
+}
+
 .about__scroller-wrapper {
   // position: absolute;
   opacity: 0;
@@ -47,6 +72,12 @@
   &.is-inview {
     transform: translateX(0);
     opacity: 1;
+  }
+  &.is-mobile {
+    position: relative;
+    overflow: scroll;
+    padding: 30px;
+    margin-top: 40px;
   }
 }
 
@@ -61,14 +92,28 @@
   position: absolute;
   display: flex;
   left: 70%;
-  top: 37vh;
+  top: 30vh;
+  .is-mobile & {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+  @include bp(1200) {
+    top: 37vh;
+  }
   .about__img {
     position: relative;
-    width: 25vw;
-    height: 22vw;
+    width: 260px;
+    height: 260px;
     display: inline-block;
-    margin-left: 60px;
+    margin-left: 40px;
     background: $anthracite;
+    flex-shrink: 0;
+    @include bp(1024) {
+      margin-left: 60px;
+      width: 25vw;
+      height: 22vw;
+    }
     &:first-child {
       margin-left: 0;
     }
@@ -100,36 +145,42 @@
   top: 65vh;
   left: 70%;
   width: auto;
+  .is-mobile & {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: -4rem;
+  }
   .stat-wrapper {
     margin-left: 60px;
     display: flex;
     text-shadow: 0 0 10px #000;
+    flex-direction: column;
     &:first-child {
       margin-left: 0;
     }
     .stat {
       color: $brightGreen;
       font-weight: 200;
-      font-size: 8vw;
+      font-size: 15vh;
       margin: 0;
       padding: 0;
       line-height: 1;
+      @include bp(1024) {
+        font-size: 8vw;
+      }
     }
     .stat__text {
-      margin-left: 2rem;
-      width: 22vw;
-      min-width: 440px;
+      width: 280px;
+      min-width: 200px;
+      @include bp(1024) {
+        width: 22vw;
+        min-width: 440px;
+        margin-left: 2rem;
+      }
       p {
         margin-top: 1rem;
       }
     }
   }
-}
-
-.about__body {
-  margin: 100vh 0 200vh 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }

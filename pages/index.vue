@@ -56,6 +56,9 @@
           </div>
         </div>
         <div id="intro-wrapper" class="hero__intro" data-scroll>
+          <div class="intro-texture-bg full-width">
+            <div class="inner-texture" data-scroll data-scroll-speed="-2"></div>
+          </div>
           <div
             class="hero__intro-inner"
             data-scroll
@@ -98,12 +101,24 @@
     </div>
     <section
       id="about-wrapper"
-      class="about__container"
+      :class="['about__container', { 'is-mobile': isMobile }]"
       data-scroll
       data-scroll-call="about"
     >
       <div class="about-texture-bg full-width">
         <div class="inner-texture" data-scroll data-scroll-speed="-2"></div>
+      </div>
+      <div
+        v-if="isMobile"
+        class="about__title title-reveal is-mobile"
+        data-scroll
+        data-splitting
+        data-scroll-offset="20%"
+      >
+        <block-content
+          :blocks="about.aboutTitle"
+          :serializers="serializers"
+        ></block-content>
       </div>
       <about-scroller :about="about" :scroll="scroll"></about-scroller>
       <div
@@ -119,7 +134,18 @@
           data-scroll-speed="-1"
         ></div>
       </div>
-      <div class="about__content">
+      <div
+        v-if="isMobile"
+        class="about__body body-copy is-mobile"
+        data-scroll
+        data-scroll-speed="2"
+      >
+        <h2 class="subhead">Our Story</h2>
+        <block-content :blocks="about.aboutBody"></block-content>
+        <!-- <a class="cta-link">Lets talk about the details – get in touch</a> -->
+      </div>
+
+      <div v-if="!isMobile" class="about__content">
         <div
           class="about__title title-reveal"
           data-scroll
@@ -261,7 +287,11 @@
         </div>
       </div>
     </section>
-    <section id="clients-wrapper" class="clients__container" data-scroll>
+    <section
+      id="clients-wrapper"
+      :class="['clients__container', { 'is-mobile': isMobile }]"
+      data-scroll
+    >
       <div class="clients__content">
         <div
           class="clients__body body-copy"
@@ -270,8 +300,10 @@
         >
           <block-content :blocks="clients.clientsBody"></block-content>
         </div>
+        <!-- <div class="clients__logos-grid"></div> -->
         <div
-          class="clients__logos"
+          v-if="!isMobile"
+          class="clients__logos-scroller"
           data-scroll
           data-scroll-speed="-2"
           data-scroll-offset="20%"
@@ -568,7 +600,7 @@
 
 <script>
 // import NavDesktop from "../components/NavDesktop.vue";
-// import mobile from "is-mobile";
+import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
 import Arrow from "~/assets/down_arrow.svg?inline";
@@ -642,6 +674,7 @@ export default {
       scrollInit: false,
       imgRes: { width: 1, height: 1, dpr: 1 },
       navOffset: "100%, 60",
+      isMobile: "",
       serializers: {
         marks: {
           span: copyline,
@@ -674,6 +707,9 @@ export default {
     },
   },
   mounted() {
+    if (mobile()) {
+      this.isMobile = true;
+    }
     gsap.registerPlugin(ScrollTrigger);
     this.setImgRes();
     console.log("MOUNTED INDEX");
@@ -711,10 +747,12 @@ export default {
         res.height = 900;
       } else if (width >= 768) {
         res.width = 800;
-      } else {
-        res.width = 400;
       }
       res.height = Math.round(height * 0.8);
+      if (this.isMobile) {
+        res.width = 400;
+        res.height = 800;
+      }
       this.imgRes = { ...res, dpr };
     },
     initScroll() {

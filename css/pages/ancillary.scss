@@ -1,3 +1,15 @@
+#sticky-logo-target {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: none;
+  pointer-events: none;
+  display: inline-block;
+  z-index: -10;
+}
+
 .legals__title-block {
   @extend .content-block;
   align-items: flex-end;

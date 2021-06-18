@@ -55,6 +55,60 @@ body {
   }
 }
 
+.generic__container {
+  @extend .section-container;
+  // height: 130vh;
+  background: #eaeaea;
+  color: $black;
+  a {
+    color: $darkTeal;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      color: $darkBlue;
+    }
+  }
+  .generic-texture-bg.full-width {
+    background: #eaeaea;
+    @include abs100();
+    height: 130%;
+    .inner-texture {
+      background: url("~/assets/tex-worms.jpg") repeat 0/300px;
+      opacity: 1;
+    }
+  }
+  .generic-texture-bg {
+    @include abs100();
+    height: 260vh;
+    width: 100%;
+    background: tint($brown, 80%);
+
+    &.pull-right {
+      left: 50%;
+      clip-path: polygon(
+        calc(0.36397023426 * 260vh) 0,
+        100% 0,
+        100% 100%,
+        0 100%
+      );
+    }
+    &.pull-left {
+      left: -80%;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        calc(100% - (0.36397023426 * 260vh)) 100%,
+        0 100%
+      );
+    }
+    .inner-texture {
+      background: url("~/assets/tex-hex.jpg") repeat 0/300px;
+      mix-blend-mode: overlay;
+    }
+  }
+}
+
 .content-block {
   position: relative;
   width: 100%;
@@ -75,6 +129,14 @@ body {
   @include bp(1400) {
     padding: 20vh 10%;
   }
+}
+
+.generic__content {
+  @extend .content-block;
+  @extend .content-block--extra-pad;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .clip-right {
@@ -217,10 +279,17 @@ body {
   background-color: $lightGrey;
   padding: 60px 30px;
   h1,
-  h2,
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    @include bp(1400) {
+      font-size: 2.6rem;
+      font-weight: 500;
+    }
+  }
   h3,
   h4 {
-    // font-family: Proxima Nova, sans-serif;
     margin: 0.8rem 0;
     font-size: 1.5rem;
     margin-top: 2.4rem;

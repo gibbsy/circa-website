@@ -1,29 +1,40 @@
 <template>
-  <div ref="scroll" class="page-wrapper ancillary-page legals">
-    <div class="nav" role="navigation">
-      <transition name="fade" appear mode="out-in">
-        <div class="circa-logo">
-          <nuxt-link to="/">
-            <logo />
-          </nuxt-link>
-        </div>
-      </transition>
-    </div>
-    <div class="hero__container--dark">
-      <Graphics />
-      <div class="legals__title-block">
+  <div ref="scroll-legal" class="page-wrapper ancillary-page legals">
+    <transition name="fade" appear mode="out-in">
+      <div
+        ref="logo-peel"
+        class="circa-logo logo-corner-left"
+        aria-label="circa Logo"
+        data-scroll
+      >
+        <nuxt-link to="/">
+          <logo />
+        </nuxt-link>
+      </div>
+    </transition>
+    <section id="services-wrapper" class="services__container" data-scroll>
+      <div
+        class="services-texture-bg pull-right"
+        data-scroll
+        data-scroll-direction="horizontal"
+        data-scroll-speed="2"
+      >
+        <div
+          class="inner-texture"
+          data-scroll
+          data-scroll-direction="horizontal"
+          data-scroll-speed="-2"
+        ></div>
+      </div>
+
+      <div class="services__content">
         <transition name="fade" appear mode="out-in">
-          <h1 class="hero__headline">{{ pageData.title }}</h1>
+          <block-content
+            :class-name="'legals__text text-block--full-width'"
+            :blocks="pageData.text"
+          ></block-content>
         </transition>
       </div>
-    </div>
-    <section class="legals section-container">
-      <transition name="fade" appear mode="out-in">
-        <block-content
-          :class-name="'legals__text text-block--full-width'"
-          :blocks="pageData.text"
-        ></block-content>
-      </transition>
     </section>
 
     <app-footer></app-footer>
@@ -34,7 +45,7 @@ import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "@/sanityClient";
 import AppFooter from "~/components/AppFooter.vue";
-import Logo from "~/assets/circa_logo_white.svg?inline";
+import Logo from "~/assets/circa_logo_nofill.svg?inline";
 const urlBuilder = imageUrlBuilder(sanityClient);
 console.log(mobile());
 export default {
@@ -48,52 +59,17 @@ export default {
     console.log(pageData[0]);
     return { pageData: pageData[0] };
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.init();
-    });
+  data() {
+    return {};
   },
-  beforeDestroy() {
-    console.log("destroy scroll");
-    window.removeEventListener("resize", this.handleResize);
-    this.scroll.destroy();
-    this.scroll = null;
-  },
+  mounted() {},
+
   methods: {
     init() {
-      this.initScroll();
+      // this.initScroll();
     },
     urlFor(source) {
       return urlBuilder.image(source);
-    },
-    initScroll() {
-      const el = this.$refs.scroll;
-      this.scroll = new this.LocomotiveScroll({
-        el,
-        smooth: true,
-        getDirection: true,
-      });
-      setTimeout(() => {
-        this.updateScroll();
-      }, 500);
-      this.initScrollEvents();
-    },
-    initScrollEvents() {
-      window.addEventListener("resize", this.handleResize);
-    },
-    updateScroll() {
-      console.log("update scroll");
-      this.scroll.update();
-    },
-    scrollTo(target, options) {
-      this.scroll.scrollTo(target, options);
-    },
-    handleResize() {
-      console.log("Resize");
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = setTimeout(() => {
-        this.updateScroll();
-      }, 250);
     },
   },
 };

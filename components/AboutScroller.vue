@@ -1,6 +1,10 @@
 <template>
   <div class="about__scroller-wrapper" data-scroll data-scroll-offset="35%">
-    <div id="about-images-container" class="about__images">
+    <div
+      id="about-images-container"
+      ref="about-images-container"
+      class="about__images"
+    >
       <div v-for="img in about.aboutImages" :key="img.title" class="about__img">
         <figure
           class="inner-image"
@@ -57,11 +61,13 @@ export default {
       this.initScrollAni();
     }); */
     const imgLoad = imagesLoaded(
-      "#about-images-container",
+      this.$refs["about-images-container"],
       { background: true },
       () => {
         const that = this;
-        this.initScrollAni();
+        this.$nextTick(() => {
+          this.initScrollAni();
+        });
         setTimeout(() => {
           that.updateScroll();
         }, 500);
@@ -77,7 +83,8 @@ export default {
       const scrollContainer = document.getElementById("page-wrapper");
       const images = document.getElementById("about-images-container");
       const stats = document.getElementById("about-stats-container");
-
+      console.log("INIT ABOUT SCROLLER");
+      console.log(scrollContainer, images, stats);
       const tl = gsap.timeline({
         scrollTrigger: {
           scroller: scrollContainer,

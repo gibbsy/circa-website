@@ -86,7 +86,11 @@
       </div>
 
       <div class="case__carousel-outer-wrapper">
-        <div :id="carouselId" class="case__carousel-wrapper">
+        <div
+          :id="carouselId"
+          ref="carousel-wrapper"
+          class="case__carousel-wrapper"
+        >
           <figure
             v-for="img in content.projectImages"
             :key="img.title"
@@ -192,7 +196,7 @@ export default {
   methods: {
     initCarousel() {
       const container = this.$refs["carousel-container"];
-      const el = document.getElementById(this.carouselId);
+      const el = this.$refs["carousel-wrapper"];
       const elWidth = el.scrollWidth;
       const margin = Math.round(window.innerWidth * 0.2);
       const scrollDist = elWidth - window.innerWidth + margin;

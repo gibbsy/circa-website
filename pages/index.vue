@@ -1,5 +1,5 @@
 <template>
-  <div id="page-wrapper" ref="scroll" class="home page-wrapper">
+  <div id="page-wrapper" ref="scroll-container" class="home page-wrapper">
     <div id="sticky-nav-target"></div>
     <section
       id="hero-container"
@@ -440,6 +440,7 @@
       </div>
     </section>
     <section
+      v-if="ready"
       class="case-studies__container"
       data-scroll
       data-scroll-call="cases"
@@ -559,6 +560,7 @@
       :active="navActive"
       :scroll="scroll"
       :dark="dark"
+      @hook:mounted="setNavOffset"
     />
     <app-footer />
   </div>
@@ -626,10 +628,18 @@ export default {
       navActive: false,
       dark: false,
       resizeTimeout: 0,
-      scroll: {},
+      scroll: {
+        update: () => {
+          console.log("scroll not initialized");
+        },
+        destroy: () => {
+          console.log("scroll not initialized destroy");
+        },
+      },
       showUi: false,
       showPrompt: false,
       ready: false,
+      scrollInit: false,
       imgRes: { width: 1, height: 1, dpr: 1 },
       navOffset: "100%, 60",
       serializers: {
@@ -666,10 +676,16 @@ export default {
   mounted() {
     gsap.registerPlugin(ScrollTrigger);
     this.setImgRes();
-    this.init();
-    this.$nextTick(() => {});
+    console.log("MOUNTED INDEX");
+    console.log(this.hero);
+    this.initScroll();
   },
   beforeDestroy() {
+    console.log("DESTROY INDEX");
+    console.log("destroy scrolltrigger");
+    // const that = this;
+    // ScrollTrigger.removeEventListener("refresh", () => that.scroll.update());
+    ScrollTrigger.kill();
     console.log("destroy scroll");
     window.removeEventListener("resize", this.handleResize);
     this.scroll.destroy();
@@ -702,8 +718,10 @@ export default {
       this.imgRes = { ...res, dpr };
     },
     initScroll() {
-      const el = this.$refs.scroll;
-      const scroller = new this.LocomotiveScroll({
+      console.log("BEGIN SCROLL INIT");
+      const el = this.$refs["scroll-container"];
+      console.log(el);
+      this.scroll = new this.LocomotiveScroll({
         el,
         smooth: true,
         getDirection: true,
@@ -712,12 +730,20 @@ export default {
         this.updateScroll();
       }, 500);
 
-      scroller.on("scroll", ScrollTrigger.update);
+      this.scrollInit = true;
+      this.$nextTick(() => this.initScrollTrigger());
+      console.log("SCROLL INIT INDEX");
+    },
+    initScrollTrigger() {
+      console.log("BEGIN SCROLLTRIGGER INIT");
+      const el = this.$refs["scroll-container"];
+      this.scroll.on("scroll", ScrollTrigger.update);
+      const that = this;
       ScrollTrigger.scrollerProxy(el, {
         scrollTop(value) {
           return arguments.length
-            ? scroller.scrollTo(value, 0, 0)
-            : scroller.scroll.instance.scroll.y;
+            ? that.scroll.scrollTo(value, 0, 0)
+            : that.scroll.scroll.instance.scroll.y;
         }, // we don't have to define a scrollLeft because we're only scrolling vertically.
         getBoundingClientRect() {
           return {
@@ -732,18 +758,22 @@ export default {
           ? "transform"
           : "fixed",
       });
-      ScrollTrigger.addEventListener("refresh", () => scroller.update()); // locomotive-scroll
-      ScrollTrigger.refresh();
-      this.scroll = scroller;
+      // ScrollTrigger.addEventListener("refresh", () => that.scroll.update());
+      this.updateScroll();
       this.$nextTick(() => {
         this.initScrollEvents();
       });
     },
-    initScrollEvents() {
-      window.addEventListener("resize", this.handleResize);
+    setNavOffset() {
+      console.log("SET NAV OFFSET");
       const nav = document.getElementById("nav-sticky");
+      console.log(nav);
       const navHeight = nav.offsetHeight;
       this.navOffset = `${window.innerHeight - navHeight}, ${navHeight}`;
+    },
+    initScrollEvents() {
+      console.log("BEGIN SCROLL EVENTS INIT");
+      window.addEventListener("resize", this.handleResize);
 
       this.scroll.on("call", (value, way, obj) => {
         if (value === "hero") {
@@ -765,7 +795,8 @@ export default {
       });
     },
     updateScroll() {
-      console.log("update scroll");
+      console.log("update scroll index");
+      ScrollTrigger.refresh();
       this.scroll.update();
     },
     scrollTo(target, options) {
@@ -786,30 +817,26 @@ export default {
       });
     },
     onLoad() {
-      this.ready = true;
-      /*   const logoEl = this.$refs["logo-peel"];
-      gsap.fromTo(
-        logoEl,
-        { x: "-100%" },
-        { x: 0, duration: 1, ease: "Power2.easeOut" }
-      ); */
-      setTimeout(() => {
-        this.showUi = true;
-        document.body.style.setProperty("--bg-root", "#00304d");
-        ScrollTrigger.refresh();
-        this.updateScroll();
-      }, 500);
-      setTimeout(() => {
-        this.showPrompt = true;
-        ScrollTrigger.refresh();
-        this.updateScroll();
-      }, 3000);
-      this.$nextTick(() => {
-        this.splitText();
-        // this.scroll.start();
-        ScrollTrigger.refresh();
-        this.updateScroll();
-      });
+      if (this.scrollInit === false) {
+        setTimeout(() => {
+          this.onLoad();
+        }, 50);
+      } else if (this.scrollInit === true) {
+        this.ready = true;
+        console.log("ONLOAD INDEX");
+        setTimeout(() => {
+          this.showUi = true;
+          document.body.style.setProperty("--bg-root", "#00304d");
+          this.updateScroll();
+        }, 500);
+        setTimeout(() => {
+          this.showPrompt = true;
+          this.updateScroll();
+        }, 3000);
+        this.$nextTick(() => {
+          this.splitText();
+        });
+      }
     },
   },
 };

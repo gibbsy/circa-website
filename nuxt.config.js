@@ -25,7 +25,7 @@ export default {
       { name: "theme-color", content: "#1a1a1a" },
     ],
     link: [
-      { rel: "canonical", href: "https://www.circahealthcare.co.uk" },
+      { rel: "canonical", href: "https://www.circa-healthcare.co.uk" },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
         rel: "apple-touch-icon",
@@ -116,13 +116,13 @@ export default {
     id: "GTM-M76Q9KJ",
   },
   sitemap: {
-    hostname: "https://www.circahealthcare.co.uk",
+    hostname: "https://www.circa-healthcare.co.uk",
     routes: ["/legal/privacy-policy", "legal/disclaimer"],
   },
   robots: {
     UserAgent: "*",
-    Disallow: "",
-    Sitemap: "https://www.circahealthcare.co.uk/sitemap.xml",
+    Disallow: "/legal",
+    Sitemap: "https://www.circa-healthcare.co.uk/sitemap.xml",
   },
 
   build: {

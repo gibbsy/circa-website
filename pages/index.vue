@@ -744,10 +744,6 @@ export default {
     },
   },
   mounted() {
-    this.$nuxt.$on("VIDEO_PLAYING", () => {
-      console.log("RECEIVED_EVENT");
-      this.onLoad();
-    });
     if (mobile({ tablet: true, featureDetect: true })) {
       this.isMobile = true;
     } else {

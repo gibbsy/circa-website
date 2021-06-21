@@ -87,7 +87,6 @@ export default {
     },
     onStart() {
       if (!this.started) {
-        // this.$nuxt.$emit("VIDEO_PLAYING");
         this.readyFn();
         this.started = true;
       }

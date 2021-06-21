@@ -16,7 +16,11 @@
           backgroundImage:
             imgRes.width > 1
               ? `url('${urlFor(content.hero.asset)
-                  .width(Math.floor(imgRes.width / 3))
+                  .width(
+                    isMobile && imgRes.width < 1000
+                      ? imgRes.width
+                      : Math.floor(imgRes.width / 3)
+                  )
                   .height(Math.floor(imgRes.height / 2))
                   .format('jpg')
                   .quality(50)
@@ -66,7 +70,7 @@
           <block-content :blocks="content.problem"></block-content>
         </div>
         <div
-          class="case__problem body-copy"
+          class="case__solution body-copy"
           data-scroll
           data-scroll-offset="20%"
         >
@@ -134,6 +138,7 @@
   </div>
 </template>
 <script>
+import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
 import copyline from "~/components/span.vue";
@@ -157,6 +162,7 @@ export default {
   data() {
     return {
       loaded: false,
+      isMobile: "",
       carousel: {
         position: 0,
         animating: false,
@@ -178,9 +184,7 @@ export default {
     },
   },
   mounted() {
-    /*  this.$nextTick(() => {
-      this.initScrollAni();
-    }); */
+    this.isMobile = mobile({ tablet: true, featureDetect: true });
     const imgLoad = imagesLoaded("#" + this.carouselId, (instance) => {
       this.loaded = true;
       console.log(instance);

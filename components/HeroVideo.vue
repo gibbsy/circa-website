@@ -4,7 +4,7 @@
       ref="innerContainer"
       class="content__video_wrapper_inner autoplay wallpaper"
     >
-      <div :id="playerId" ref="player" class="content__video wallpaper"></div>
+      <div id="hero-bg-vid" ref="player" class="content__video wallpaper"></div>
     </div>
     <div class="video__overlay"></div>
   </div>
@@ -41,6 +41,7 @@ export default {
       paused: true,
       inProgress: false,
       initialized: false,
+      started: false,
     };
   },
   computed: {
@@ -79,11 +80,18 @@ export default {
   },
   methods: {
     init() {
-      this.player = new Vimeo.Player(this.playerId, this.playerOpts);
+      this.player = new Vimeo.Player("hero-bg-vid", this.playerOpts);
       this.initialized = true;
-      this.player.on("play", () => {
+      // on "start" not firing on ipad chrome - must be to do with autoplay
+      this.player.on("timeupdate", this.onStart);
+    },
+    onStart() {
+      if (!this.started) {
+        // this.$nuxt.$emit("VIDEO_PLAYING");
         this.readyFn();
-      });
+        this.started = true;
+      }
+      this.player.off("timeupdate", this.onStart);
     },
   },
 };

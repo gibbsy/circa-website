@@ -120,6 +120,9 @@ body {
 
 .content-block--extra-pad {
   padding: 60px 30px;
+  @include bp(768) {
+    padding: 60px;
+  }
   @include bp(1024) {
     padding: 7vh 5%;
   }
@@ -159,7 +162,10 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 140px;
+  margin-top: 4rem;
+  @include bp(768) {
+    margin-top: 140px;
+  }
   a {
     transform: translateY(100px);
     opacity: 0;
@@ -174,16 +180,24 @@ body {
 .section-hero-image__wrapper {
   position: absolute;
   display: inline-block;
-  left: 25%;
+  left: 0;
   top: 0;
-  width: 75vw;
-  height: 60vh;
-  clip-path: polygon(calc(0.36397023426 * 60vh) 0, 100% 0, 100% 100%, 0 100%);
+  width: 100vw;
+  height: 50vh;
+  clip-path: polygon(calc(0.36397023426 * 50vh) 0, 100% 0, 100% 100%, 0 100%);
   transition: opacity 1s ease;
   overflow: hidden;
   opacity: 0;
   // mix-blend-mode: screen;
   @include bp(768) {
+    left: 10%;
+    width: 90vw;
+  }
+  @include bp(1024) {
+    clip-path: polygon(calc(0.36397023426 * 60vh) 0, 100% 0, 100% 100%, 0 100%);
+    height: 60vh;
+    left: 25%;
+    width: 75vw;
     width: 45vw;
     left: 55%;
   }
@@ -192,13 +206,15 @@ body {
   }
   .section-hero-image__inner {
     @include abs100();
-    width: 120%;
-    left: -10%;
+    width: 100%;
+    left: 0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0.4;
-    @include bp(768) {
+    @include bp(1200) {
+      width: 120%;
+      left: -10%;
       opacity: 0.7;
     }
   }
@@ -221,9 +237,14 @@ body {
   top: 0;
   left: 0;
   z-index: 50001;
-  width: 25vw;
+  width: 20vw;
   margin: 15px 0 0 20px;
-  @include bp(1024) {
+  transition: opacity 0.6s ease;
+  @include bp(768) {
+    margin: 20px 0 0 30px;
+    width: 140px;
+  }
+  @include bp(1200) {
     margin: 0;
     padding: 1.4rem 10vw 0 1.5vw;
     height: 100vh;
@@ -241,11 +262,11 @@ body {
   svg {
     width: 100%;
     fill: $white;
-    @include bp(1024) {
+    @include bp(1200) {
       fill: $black;
     }
   }
-  @include bp(1024) {
+  @include bp(1200) {
     &:before {
       content: "";
       display: inline-block;

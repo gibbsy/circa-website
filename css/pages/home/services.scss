@@ -28,13 +28,16 @@
       );
     }
     &.pull-left {
-      left: -80%;
+      left: -75%;
       clip-path: polygon(
         0 0,
         100% 0,
         calc(100% - (0.36397023426 * 260vh)) 100%,
         0 100%
       );
+      @include bp(1024) {
+        left: -80%;
+      }
     }
     .inner-texture {
       background: url("~/assets/tex-hex.jpg") repeat 0/300px;
@@ -74,15 +77,21 @@
 }
 
 .services__body {
-  margin-top: 15vh;
+  margin-top: 5vh;
+  @include bp(1024) {
+    margin-top: 15vh;
+  }
 }
 
 .services__icons {
   position: relative;
-  margin-top: 15vh;
+  margin-top: 5vh;
   width: 100%;
   display: flex;
   justify-content: center;
+  @include bp(768) {
+    margin-top: 15vh;
+  }
 
   .services__icons-row {
     position: relative;

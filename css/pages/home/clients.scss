@@ -16,7 +16,7 @@
 
 .clients__body {
   width: 100%;
-  @include bp(768) {
+  @include bp(1024) {
     width: 60%;
   }
 }
@@ -73,6 +73,36 @@
   }
   .is-mobile & {
     display: none;
+  }
+}
+.clients__logos--mobile {
+  position: relative;
+  margin-top: 4rem;
+  width: 100%;
+  .logos-grid-mobile {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    @include bp(768) {
+      gap: 40px;
+    }
+    @include bp(1024) {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 80px 40px;
+    }
+  }
+  .logo-inner {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: $darkTeal;
+    // mix-blend-mode: multiply;
+    background-blend-mode: multiply;
   }
 }
 

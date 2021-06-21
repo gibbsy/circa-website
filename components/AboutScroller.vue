@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['about__scroller-wrapper', { 'is-mobile': isMobile }]"
+    :class="['about__scroller-wrapper', { 'is-mobile': isMobile === true }]"
     data-scroll
     data-scroll-offset="35%"
   >
@@ -63,10 +63,7 @@ export default {
     };
   },
   mounted() {
-    /*  this.$nextTick(() => {
-      this.initScrollAni();
-    }); */
-    console.log("Mobile" + this.isMobile);
+    this.isMobile = mobile({ tablet: true, featureDetect: true });
     const imgLoad = imagesLoaded(
       this.$refs["about-images-container"],
       { background: true },
@@ -87,8 +84,7 @@ export default {
   },
   methods: {
     initScrollAni() {
-      if (mobile({ tablet: true })) {
-        this.isMobile = true;
+      if (this.isMobile === true) {
         return;
       }
       const scrollContainer = document.getElementById("page-wrapper");

@@ -16,16 +16,16 @@ h2 {
   font-size: 9vw;
   line-height: 1.4;
   @include bp(768) {
-    font-size: 5vw;
+    font-size: 7vw;
   }
   @include bp(1024) {
-    font-size: 2rem;
+    font-size: 4vw;
   }
   @include bp(1200) {
     font-size: 2.6rem;
   }
   @include bp(1400) {
-    font-size: 2.8rem;
+    font-size: 3.2rem;
   }
   @include bp(1600) {
     font-size: 3.6rem;
@@ -37,7 +37,16 @@ h2 {
     font-weight: 700;
   }
   span.copy-line {
-    display: block;
+    display: inline;
+    &:before {
+      content: " ";
+    }
+    @include bp(768) {
+      display: block;
+      &:before {
+        content: none;
+      }
+    }
     &:last-child {
       font-weight: 700;
     }
@@ -60,7 +69,7 @@ h3 {
   position: relative;
   .copy-line {
     overflow: hidden;
-    display: table;
+    // display: table;
   }
   .word {
     display: inline-block;
@@ -82,7 +91,10 @@ h3 {
   letter-spacing: 2px;
   display: flex;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: 50vh;
+  @include bp(1024) {
+    margin-bottom: 4rem;
+  }
   &:after {
     content: "";
     position: relative;
@@ -125,7 +137,9 @@ h3 {
 p,
 a,
 ul,
-li {
+li,
+.case__meta h3,
+.body-copy h3 {
   font-weight: 400;
   line-height: 1.6;
   font-size: 1.1rem;
@@ -143,6 +157,12 @@ li {
   }
   @include bp(1800) {
     font-size: 1.4rem;
+  }
+  @include bp(2200) {
+    font-size: 1.6rem;
+  }
+  @include bp(2800) {
+    font-size: 1.8rem;
   }
   strong {
     font-style: normal;
@@ -192,6 +212,7 @@ a:visited {
 .body-copy {
   position: relative;
   width: 100%;
+
   @include bp(1024) {
     width: 40vw;
   }
@@ -215,8 +236,11 @@ a:visited {
 
 .connect__details {
   h3 {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     line-height: 1.4;
+    @include bp(768) {
+      font-size: 1.6rem;
+    }
     @include bp(1600) {
       font-size: 2rem;
       line-height: 1.7;

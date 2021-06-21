@@ -59,6 +59,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  .is-mobile & {
+    @include bp(768) {
+      width: 80vw;
+    }
+  }
   &:not(.is-mobile) {
     margin: 100vh 0 200vh 0;
   }
@@ -75,7 +80,7 @@
   }
   &.is-mobile {
     position: relative;
-    overflow: scroll;
+    overflow-x: scroll;
     padding: 30px;
     margin-top: 40px;
   }

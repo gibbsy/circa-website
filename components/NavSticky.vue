@@ -20,7 +20,6 @@
   </div>
 </template>
 <script>
-import mobile from "is-mobile";
 import Logo from "~/assets/circa_logo_nofill.svg?inline";
 export default {
   components: {
@@ -45,11 +44,6 @@ export default {
       showProducts: false,
     };
   }, */
-  computed: {
-    isMobile() {
-      return mobile();
-    },
-  },
   methods: {
     scrollTo(target, options) {
       this.scroll.scrollTo(target, options);

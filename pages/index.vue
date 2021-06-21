@@ -76,29 +76,33 @@
         </div>
       </article>
     </section>
-    <nav-desktop
-      v-show="showUi"
-      ref="nav"
-      :scroll="scroll"
-      data-scroll
-      data-scroll-repeat="true"
-      data-scroll-sticky="true"
-      data-scroll-target="#hero-container"
-    />
-    <div
-      v-show="showUi"
-      ref="logo-peel"
-      class="circa-logo logo-corner-left"
-      aria-label="circa Logo"
-      data-scroll
-      data-scroll-repeat="true"
-      data-scroll-sticky="true"
-      data-scroll-target="#hero-container"
-    >
-      <nuxt-link to="/">
-        <logo />
-      </nuxt-link>
-    </div>
+    <transition appear name="fade">
+      <nav-desktop
+        v-show="showUi"
+        ref="nav"
+        :scroll="scroll"
+        data-scroll
+        data-scroll-repeat="true"
+        data-scroll-sticky="true"
+        data-scroll-target="#hero-container"
+      />
+    </transition>
+    <transition appear name="fade">
+      <div
+        v-show="showUi"
+        ref="logo-peel"
+        class="circa-logo logo-corner-left"
+        aria-label="circa Logo"
+        data-scroll
+        data-scroll-repeat="true"
+        data-scroll-sticky="true"
+        data-scroll-target="#hero-container"
+      >
+        <nuxt-link to="/">
+          <logo />
+        </nuxt-link>
+      </div>
+    </transition>
     <section
       id="about-wrapper"
       :class="['about__container', { 'is-mobile': isMobile }]"
@@ -120,7 +124,11 @@
           :serializers="serializers"
         ></block-content>
       </div>
-      <about-scroller :about="about" :scroll="scroll"></about-scroller>
+      <about-scroller
+        :about="about"
+        :scroll="scroll"
+        :is-mobile="isMobile"
+      ></about-scroller>
       <div
         class="about-texture-bg pull-right"
         data-scroll
@@ -185,7 +193,11 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(services.servicesImage.asset)
-                    .width(Math.floor(imgRes.width / 2))
+                    .width(
+                      isMobile && imgRes.width < 1000
+                        ? imgRes.width
+                        : Math.floor(imgRes.width / 3)
+                    )
                     .height(Math.floor(imgRes.height / 2))
                     .format('jpg')
                     .quality(50)
@@ -249,12 +261,7 @@
           <block-content :blocks="services.servicesBody"></block-content>
         </div>
         <div class="services__icons">
-          <div
-            class="services__icons-row"
-            data-scroll
-            data-scroll-offset="20%"
-            data-scroll-repeat
-          >
+          <div class="services__icons-row" data-scroll data-scroll-offset="20%">
             <div class="services__icon-wrapper">
               <figure class="icon-inner strategy"></figure>
               <h3 class="service-title">Strategy</h3>
@@ -360,6 +367,24 @@
             </div>
           </div>
         </div>
+        <div v-else class="clients__logos--mobile">
+          <div class="logos-grid-mobile">
+            <figure
+              v-for="(client, i) in clients.clients"
+              :key="i"
+              class="logo-inner"
+              :style="{
+                backgroundImage: `url('${urlFor(client.logo)
+                  .width(560)
+                  .format('jpg')
+                  .quality(50)
+                  .saturation(-100)
+                  .bg('fff')
+                  .url()}')`,
+              }"
+            ></figure>
+          </div>
+        </div>
         <div
           class="clients__cta cta-centred"
           data-scroll
@@ -394,10 +419,14 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(work.workImage.asset)
-                    .width(Math.floor(imgRes.width / 2))
+                    .width(
+                      isMobile && imgRes.width < 1000
+                        ? imgRes.width
+                        : Math.floor(imgRes.width / 3)
+                    )
                     .height(Math.floor(imgRes.height / 2))
                     .format('jpg')
-                    .quality(50)
+                    .quality(70)
                     .saturation(-100)
                     .url()}')`
                 : 'none',
@@ -505,10 +534,14 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(connect.connectImageLeft.asset)
-                    .width(Math.floor(imgRes.width * 0.5))
+                    .width(
+                      isMobile && imgRes.width < 1000
+                        ? imgRes.width
+                        : Math.floor(imgRes.width / 2)
+                    )
                     .height(Math.floor(imgRes.height))
                     .format('jpg')
-                    .quality(50)
+                    .quality(70)
                     .saturation(-100)
                     .url()}')`
                 : 'none',
@@ -532,10 +565,14 @@
             backgroundImage:
               imgRes.width > 1
                 ? `url('${urlFor(connect.connectImageRight.asset)
-                    .width(Math.floor(imgRes.width * 0.5))
+                    .width(
+                      isMobile && imgRes.width < 1000
+                        ? imgRes.width
+                        : Math.floor(imgRes.width / 2)
+                    )
                     .height(Math.floor(imgRes.height))
                     .format('jpg')
-                    .quality(50)
+                    .quality(70)
                     .saturation(-100)
                     .url()}')`
                 : 'none',
@@ -707,18 +744,20 @@ export default {
     },
   },
   mounted() {
-    if (mobile({ tablet: true })) {
+    this.$nuxt.$on("VIDEO_PLAYING", () => {
+      console.log("RECEIVED_EVENT");
+      this.onLoad();
+    });
+    if (mobile({ tablet: true, featureDetect: true })) {
       this.isMobile = true;
+    } else {
+      this.isMobile = false;
     }
     gsap.registerPlugin(ScrollTrigger);
     this.setImgRes();
-    console.log("MOUNTED INDEX");
-    console.log(this.hero);
     this.initScroll();
   },
   beforeDestroy() {
-    console.log("DESTROY INDEX");
-    console.log("destroy scrolltrigger");
     // const that = this;
     // ScrollTrigger.removeEventListener("refresh", () => that.scroll.update());
     ScrollTrigger.kill();
@@ -750,15 +789,13 @@ export default {
       }
       res.height = Math.round(height * 0.8);
       if (this.isMobile) {
-        res.width = 400;
-        res.height = 800;
+        res.width = width;
+        res.height = height;
       }
       this.imgRes = { ...res, dpr };
     },
     initScroll() {
-      console.log("BEGIN SCROLL INIT");
       const el = this.$refs["scroll-container"];
-      console.log(el);
       this.scroll = new this.LocomotiveScroll({
         el,
         smooth: true,
@@ -770,7 +807,6 @@ export default {
 
       this.scrollInit = true;
       this.$nextTick(() => this.initScrollTrigger());
-      console.log("SCROLL INIT INDEX");
     },
     initScrollTrigger() {
       console.log("BEGIN SCROLLTRIGGER INIT");

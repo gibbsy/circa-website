@@ -636,7 +636,6 @@
 </template>
 
 <script>
-// import NavDesktop from "../components/NavDesktop.vue";
 import mobile from "is-mobile";
 import imageUrlBuilder from "@sanity/image-url";
 import sanityClient from "../sanityClient";
@@ -728,6 +727,73 @@ export default {
           hid: "description",
           name: "description",
           content: description,
+        },
+        {
+          property: "og:locale",
+          content: "en_GB",
+          vmid: "og:locale",
+        },
+        {
+          property: "og:type",
+          content: "website",
+          vmid: "og:type",
+        },
+        {
+          property: "og:url",
+          content: "https://www.circa-healthcare.co.uk",
+          vmid: "og:url",
+        },
+        {
+          property: "og:site_name",
+          content: "Circa Healthcare",
+          vmid: "og:site_name",
+        },
+        {
+          property: "og:image",
+          content:
+            "https://www.circa-healthcare.co.uk/circa_thumbnail_large.jpg",
+          vmid: "og:image",
+        },
+        {
+          property: "og:image:width",
+          content: "1200",
+          vmid: "og:image_width",
+        },
+        {
+          property: "og:image:height",
+          content: "630",
+          vmid: "og:image_width",
+        },
+        {
+          property: "og:title",
+          content: title,
+          vmid: "og:title",
+        },
+        {
+          property: "og:description",
+          content: description,
+          vmid: "og:description",
+        },
+        {
+          property: "twitter:card",
+          content: "summary_large_image",
+          vmid: "twitter:card",
+        },
+        {
+          property: "twitter:title",
+          content: title,
+          vmid: "twitter:title",
+        },
+        {
+          property: "twitter:description",
+          content: description,
+          vmid: "twitter:description",
+        },
+        {
+          property: "twitter:image",
+          content:
+            "https://www.circa-healthcare.co.uk/circa_thumbnail_large.jpg",
+          vmid: "twitter:image",
         },
       ],
     };

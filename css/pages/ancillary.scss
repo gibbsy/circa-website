@@ -36,29 +36,12 @@
   }
 }
 
-.ancillary-page {
-  &.error,
-  &.error-404 {
-    .hero__container--dark {
-      .graphic {
-        opacity: 1;
-      }
-      .graphics__dots-cluster ul li {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.error__title-block {
-  @extend .legals__title-block;
-  height: 80vh;
-  justify-content: center;
+.error-message {
+  min-height: 80vh;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  .cta-link,
-  .cta-link--green {
-    opacity: 1;
-    margin: 0;
+  justify-content: center;
+  .cta-link--arrow {
+    margin-top: 4rem;
   }
 }

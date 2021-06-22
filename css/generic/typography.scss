@@ -209,6 +209,37 @@ a:visited {
   }
 }
 
+.cta-link--arrow {
+  position: relative;
+  opacity: 1;
+  margin-top: 1rem;
+  padding: 0;
+  transform: translateY(0);
+  margin-right: 1rem;
+  transition: color 0.2s;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: -30px;
+    background: $darkTeal;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: $darkTeal url(~/assets/arrow_right.svg) no-repeat center/40%;
+    transition: background-color 0.2s ease;
+  }
+  &:hover {
+    color: $darkOrange !important;
+    &:after {
+      background: $darkOrange url(~/assets/arrow_right.svg) no-repeat center/40%;
+    }
+  }
+}
+
 .body-copy {
   position: relative;
   width: 100%;

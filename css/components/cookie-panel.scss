@@ -43,6 +43,7 @@
     margin: 0;
     padding: 0;
     a {
+      color: $black;
       text-decoration: underline;
       &:hover {
         color: $darkOrange;
@@ -53,7 +54,7 @@
     position: relative;
     float: right;
     opacity: 1;
-    margin-top: 0.6rem;
+    margin-top: 1rem;
     padding: 0;
     transform: translateY(0);
     font-size: 1rem;

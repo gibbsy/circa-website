@@ -24,10 +24,10 @@ footer {
   position: absolute;
   width: 45%;
   top: 0;
-  height: 50vh;
+  height: 80vh;
   right: 0;
   background: rgba(0, 0, 0, 20%);
-  @include clip-edge-h(left, 50vh);
+  @include clip-edge-h(left, 80vh);
   @include bp(768) {
     width: 32%;
   }

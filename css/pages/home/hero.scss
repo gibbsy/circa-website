@@ -20,7 +20,9 @@
       text-shadow: 0 0 10px #000;
     }
     &:not(.prompt) {
-      font-size: 1.3rem;
+      @include bp(400) {
+        font-size: 1.3rem;
+      }
       @include bp(1024) {
         font-size: 1.6rem;
       }

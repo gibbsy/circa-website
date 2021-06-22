@@ -4,8 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title:
-      "Circa Healthcare | A Strategic Healthcare Communications Agency RSS",
+    title: "Circa Healthcare | A Strategic Healthcare Communications Agency",
     htmlAttrs: {
       lang: "en",
     },
@@ -19,7 +18,8 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "",
+        content:
+          "We’re an award-winning creative agency that creates beautifully intelligent communications for farm, food and wellness clients all over the world.",
       },
       { name: "msapplication-TileColor", content: "#ffffff" },
       { name: "theme-color", content: "#1a1a1a" },

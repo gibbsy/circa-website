@@ -114,7 +114,17 @@
     margin-left: 40px;
     background: $anthracite;
     flex-shrink: 0;
+    @include bp(768) {
+      margin-left: 60px;
+      width: 40vw;
+      height: 34vw;
+    }
     @include bp(1024) {
+      margin-left: 60px;
+      width: 32vw;
+      height: 27vw;
+    }
+    @include bp(1200) {
       margin-left: 60px;
       width: 25vw;
       height: 22vw;
@@ -161,7 +171,7 @@
     display: flex;
     text-shadow: 0 0 10px #000;
     flex-direction: column;
-    @include bp(1024) {
+    @include bp(1200) {
       flex-direction: row;
     }
     &:first-child {
@@ -175,13 +185,25 @@
       padding: 0;
       line-height: 1;
       @include bp(1024) {
+        font-size: 10vw;
+      }
+      @include bp(1200) {
         font-size: 8vw;
       }
     }
     .stat__text {
       width: 280px;
       min-width: 200px;
+      @include bp(768) {
+        width: 360px;
+      }
       @include bp(1024) {
+        width: 400px;
+      }
+      @include bp(1100) {
+        width: 440px;
+      }
+      @include bp(1200) {
         width: 22vw;
         min-width: 440px;
         margin-left: 2rem;

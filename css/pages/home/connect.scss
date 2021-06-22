@@ -42,6 +42,23 @@ $connectHeight: 115vh;
     transition: opacity 1s ease, transform 1s $easing;
     transition-delay: 0.5s;
     margin-top: 3rem;
+    a {
+      cursor: pointer;
+      h3 {
+        color: #fff;
+      }
+      &:hover {
+        h3 {
+          color: $brightGreen;
+        }
+      }
+      &:visited {
+        h3 {
+          color: #fff;
+        }
+      }
+    }
+
     @include bp(1024) {
       margin-top: 0;
       margin-left: 6rem;

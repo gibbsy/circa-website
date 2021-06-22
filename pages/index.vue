@@ -607,7 +607,7 @@
               class="connect-loc"
             >
               <h3>{{ location.title }}</h3>
-              <a class="contact-details"
+              <a :href="`mailto:${location.email}`" class="contact-details"
                 ><h3>{{ location.email }}</h3></a
               >
               <a class="contact-details"
@@ -849,6 +849,7 @@ export default {
       }
       res.height = Math.round(height * 0.8);
       if (this.isMobile) {
+        // alert(width + " " + height);
         res.width = width;
         res.height = height;
       }

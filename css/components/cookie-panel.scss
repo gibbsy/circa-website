@@ -20,7 +20,7 @@
   bottom: 0.5rem;
   padding: 1rem 1.5rem;
   border-radius: 6px;
-  box-shadow: 0px 0px 24px rgba($midnight, 0.35);
+  box-shadow: 0px 0px 24px rgba($black, 0.35);
   z-index: 200;
   pointer-events: initial;
   @include bp(768) {
@@ -45,20 +45,42 @@
     a {
       text-decoration: underline;
       &:hover {
-        // color: $darkPurple;
+        color: $darkOrange;
       }
     }
   }
   a.cta-link {
     position: relative;
-    // float: right;
+    float: right;
     opacity: 1;
     margin-top: 0.6rem;
     padding: 0;
     transform: translateY(0);
-    font-size: 1.2rem;
+    font-size: 1rem;
+    margin-right: 1rem;
     &::before {
       content: none;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      background: $darkTeal;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      background: $darkTeal url(~/assets/arrow_right.svg) no-repeat center/30%;
+      transition: background-color 0.2s ease;
+    }
+    &:hover {
+      &:after {
+        background: $darkOrange url(~/assets/arrow_right.svg) no-repeat
+          center/30%;
+      }
     }
   }
 }

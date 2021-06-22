@@ -3,7 +3,9 @@
     <p>
       We use cookies to analyse traffic and improve your experience. Learn more
       in our
-      <nuxt-link to="/legal/privacy-policy">privacy policy.</nuxt-link>
+      <nuxt-link to="/legal/cookie-and-privacy-policy"
+        >privacy policy.</nuxt-link
+      >
     </p>
     <a class="cta-link" @click.prevent="clickFn">Continue</a>
   </div>

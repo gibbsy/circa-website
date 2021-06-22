@@ -117,7 +117,7 @@ export default {
   },
   sitemap: {
     hostname: "https://www.circa-healthcare.co.uk",
-    routes: ["/legal/privacy-policy", "legal/disclaimer"],
+    routes: ["/legal/cookie-and-privacy-policy"],
   },
   robots: {
     UserAgent: "*",

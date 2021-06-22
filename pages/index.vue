@@ -750,7 +750,8 @@ export default {
         },
         {
           property: "og:image",
-          content: "circa_thumbnail_large.jpg",
+          content:
+            "https://www.circa-healthcare.co.uk/circa_thumbnail_large.jpg",
           vmid: "og:image",
         },
         {
@@ -790,7 +791,8 @@ export default {
         },
         {
           property: "twitter:image",
-          content: "circa_thumbnail_large.jpg",
+          content:
+            "https://www.circa-healthcare.co.uk/circa_thumbnail_large.jpg",
           vmid: "twitter:image",
         },
       ],

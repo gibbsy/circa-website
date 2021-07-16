@@ -24,7 +24,7 @@
 .clients__logos-scroller {
   position: relative;
   margin-top: 20vh;
-  mix-blend-mode: multiply;
+  // mix-blend-mode: multiply;
   opacity: 0;
   transition: opacity 1s $easing;
   &.is-inview {
@@ -49,8 +49,9 @@
     width: 100px;
     height: 90px;
     margin-left: 2rem;
-    background: #fff;
+    // background: #fff;
     padding: 0.75rem 1rem;
+    isolation: isolate;
     @include bp(768) {
       margin-left: 6rem;
       width: 280px;
@@ -68,8 +69,9 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    // background-blend-mode: screen;
-    // mix-blend-mode: screen;
+    // mix-blend-mode: multiply;
+    background-color: $darkTeal;
+    background-blend-mode: multiply;
   }
   .is-mobile & {
     display: none;

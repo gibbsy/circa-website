@@ -199,8 +199,8 @@
                         : Math.floor(imgRes.width / 3)
                     )
                     .height(Math.floor(imgRes.height / 2))
-                    .format('jpg')
-                    .quality(50)
+                    .auto('format')
+                    .quality(70)
                     .saturation(-100)
                     .url()}')`
                 : 'none',
@@ -332,10 +332,9 @@
                 :style="{
                   backgroundImage: `url('${urlFor(logo.logo)
                     .width(560)
-                    .format('jpg')
-                    .quality(50)
+                    .auto('format')
+                    .quality(70)
                     .saturation(-100)
-                    .bg('fff')
                     .url()}')`,
                 }"
               ></figure>
@@ -357,10 +356,9 @@
                 :style="{
                   backgroundImage: `url('${urlFor(logo.logo)
                     .width(560)
-                    .format('jpg')
-                    .quality(50)
+                    .auto('format')
+                    .quality(70)
                     .saturation(-100)
-                    .bg('fff')
                     .url()}')`,
                 }"
               ></figure>
@@ -376,10 +374,9 @@
               :style="{
                 backgroundImage: `url('${urlFor(client.logo)
                   .width(560)
-                  .format('jpg')
-                  .quality(50)
+                  .auto('format')
+                  .quality(70)
                   .saturation(-100)
-                  .bg('fff')
                   .url()}')`,
               }"
             ></figure>
@@ -425,7 +422,7 @@
                         : Math.floor(imgRes.width / 3)
                     )
                     .height(Math.floor(imgRes.height / 2))
-                    .format('jpg')
+                    .auto('format')
                     .quality(70)
                     .saturation(-100)
                     .url()}')`
@@ -540,7 +537,7 @@
                         : Math.floor(imgRes.width / 2)
                     )
                     .height(Math.floor(imgRes.height))
-                    .format('jpg')
+                    .auto('format')
                     .quality(70)
                     .saturation(-100)
                     .url()}')`
@@ -571,7 +568,7 @@
                         : Math.floor(imgRes.width / 2)
                     )
                     .height(Math.floor(imgRes.height))
-                    .format('jpg')
+                    .auto('format')
                     .quality(70)
                     .saturation(-100)
                     .url()}')`

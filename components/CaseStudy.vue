@@ -22,8 +22,8 @@
                       : Math.floor(imgRes.width / 3)
                   )
                   .height(Math.floor(imgRes.height / 2))
-                  .format('jpg')
-                  .quality(50)
+                  .auto('format')
+                  .quality(70)
                   .url()}')`
               : 'none',
         }"
@@ -109,8 +109,7 @@
                           ? Math.floor(imgRes.height / 1.5)
                           : imgRes.height
                       )
-                      .format('jpg')
-                      .bg('fff')
+                      .auto('format')
                       .quality(70)
                       .url()
                   : ''

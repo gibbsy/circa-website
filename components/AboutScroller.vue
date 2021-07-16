@@ -16,7 +16,7 @@
             backgroundImage: `url('${urlFor(img.asset)
               .width(500)
               .height(500)
-              .format('jpg')
+              .auto('format')
               .quality(70)
               .url()}')`,
           }"

@@ -50,7 +50,7 @@
                 .width(imgRes.width)
                 .height(imgRes.height)
                 .dpr(imgRes.dpr)
-                .format('jpg')
+                .auto('jpg')
                 .quality(70)
                 .url()}')`,
             }"
